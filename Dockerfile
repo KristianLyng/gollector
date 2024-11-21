@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:latest AS builder
 
 LABEL org.opencontainers.image.source https://github.com/telenornms/skogul
 
@@ -12,4 +12,13 @@ COPY . .
 
 RUN make skogul
 
-ENTRYPOINT ["./skogul"]
+# Runtime
+FROM debian:stable-slim
+
+RUN apt update && apt install -y \
+	ca-certificates
+
+COPY --from=builder /go/src/skogul /usr/local/bin/skogul
+COPY --from=builder /go/src/docs/examples/basics/default.json /etc/skogul/conf.d/default.json
+
+ENTRYPOINT ["skogul", "-loglevel=i"]
