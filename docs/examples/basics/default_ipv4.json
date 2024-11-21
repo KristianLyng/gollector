@@ -1,0 +1,17 @@
+{
+  "receivers": {
+    "api": {
+      "type": "http",
+      "address": "0.0.0.0:8080",
+      "handlers": {
+        "/": "myhandler"
+      }
+    }
+  },
+  "handlers": {
+    "myhandler": {
+      "parser": "skogul",
+      "sender": "print"
+    }
+  }
+}
