@@ -122,7 +122,7 @@ func parseTelemetryStream(protobuffer []byte) (*pb.TelemetryStream, error) {
 // createMetadata extracts the fields containing metadata from the protocol buffer
 // and stores them in a string-interface map to be consumed at a later stage.
 func (x *ProtoBuf) createMetadata(telemetry *pb.TelemetryStream) (map[string]interface{}, error) {
-	var metadata = make(map[string]interface{})
+	metadata := make(map[string]interface{})
 
 	metadata["systemId"] = telemetry.GetSystemId()
 	metadata["sensorName"] = telemetry.GetSensorName()
@@ -137,8 +137,7 @@ applyJuniperHaxx adjusts incoming telemetry packets to make them JSON-compatible
 So far, it's mainly about fixing -Inf.
 */
 func applyJuniperHaxx(messageOnly proto.Message) {
-	var foo float32
-	foo = -40.0
+	var foo float32 = -40.0
 	optics, ok := messageOnly.(*pb.Optics)
 	if !ok {
 		return

@@ -55,8 +55,7 @@ func TestByte_ok(t *testing.T) {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "senders": {
     "tnet_alarms": {
@@ -142,8 +141,7 @@ func TestDefaultModules(t *testing.T) {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "handlers": {
     "plain": {
@@ -177,8 +175,7 @@ func TestUndefinedParser(t *testing.T) {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "handlers": {
     "plain": {
@@ -209,8 +206,7 @@ func TestNamedParser(t *testing.T) {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "parsers": {
     "jens": {

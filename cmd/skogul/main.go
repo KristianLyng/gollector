@@ -54,17 +54,19 @@ import (
 // go build -ldflags "-X main.versionNo=0.1.0" ./cmd/skogul
 var versionNo string
 
-var ffile = flag.String("f", "/etc/skogul/conf.d/", "Path to skogul config to read. Either a file or a directory of .json files.")
-var fconfigDir = flag.String("d", "", "Path to skogul configuration files. Deprecated, use -f.")
-var fhelp = flag.Bool("help", false, "Print more help")
-var fconf = flag.Bool("show", false, "Print the parsed JSON config instead of starting")
-var fman = flag.Bool("make-man", false, "Output RST documentation suited for rst2man")
-var flogformat = flag.String("logformat", "auto", "Log format (auto, json, default: auto)")
-var floglevel = flag.String("loglevel", "warn", "Minimum loglevel to display ([e]rror, [w]arn, [i]nfo, [d]ebug, [t]race/[v]erbose)")
-var ftimestamp = flag.Bool("timestamp", true, "Include timestamp in log entries")
-var fversion = flag.Bool("version", false, "Print skogul version")
-var fprofile = flag.String("pprof", "", "Enable profiling over HTTP, value is http endpoint, e.g: localhost:6060")
-var fplugins = flag.String("experimental-plugins", "", "Comma-separated list of .so files to load as plugins. This is completely unsupported tech preview to get experience with it.")
+var (
+	ffile      = flag.String("f", "/etc/skogul/conf.d/", "Path to skogul config to read. Either a file or a directory of .json files.")
+	fconfigDir = flag.String("d", "", "Path to skogul configuration files. Deprecated, use -f.")
+	fhelp      = flag.Bool("help", false, "Print more help")
+	fconf      = flag.Bool("show", false, "Print the parsed JSON config instead of starting")
+	fman       = flag.Bool("make-man", false, "Output RST documentation suited for rst2man")
+	flogformat = flag.String("logformat", "auto", "Log format (auto, json, default: auto)")
+	floglevel  = flag.String("loglevel", "warn", "Minimum loglevel to display ([e]rror, [w]arn, [i]nfo, [d]ebug, [t]race/[v]erbose)")
+	ftimestamp = flag.Bool("timestamp", true, "Include timestamp in log entries")
+	fversion   = flag.Bool("version", false, "Print skogul version")
+	fprofile   = flag.String("pprof", "", "Enable profiling over HTTP, value is http endpoint, e.g: localhost:6060")
+	fplugins   = flag.String("experimental-plugins", "", "Comma-separated list of .so files to load as plugins. This is completely unsupported tech preview to get experience with it.")
+)
 
 // Console width :D
 const helpWidth = 66
@@ -94,7 +96,6 @@ func modhelp(name string, mp skogul.ModuleMap) {
 		}
 		prettyPrint(idx, mod.Help)
 	}
-
 }
 
 // help prints the regular command line usage, and lists all receivers and
@@ -188,7 +189,7 @@ func main() {
 	}
 	log.Info("Starting skogul")
 
-	var exitInt = 0
+	exitInt := 0
 	var wg sync.WaitGroup
 	for name, r := range c.Receivers {
 		wg.Add(1)
