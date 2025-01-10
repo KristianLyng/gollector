@@ -154,26 +154,23 @@ func (t *TCP) worker() {
 	w.dialer = t.dialer
 	w.delimiter = t.Delimiter
 	w.wt = t.WriteTimeout.Duration
-	for {
-		select {
-		case msg := <-t.queue:
-			retries := 0
-			var err error
-			for retries = 0; retries <= t.MaxRetries; retries++ {
-				err = w.handle(msg)
-				if err == nil {
-					break
-				}
+	for msg := range t.queue {
+		retries := 0
+		var err error
+		for retries = 0; retries <= t.MaxRetries; retries++ {
+			err = w.handle(msg)
+			if err == nil {
+				break
 			}
-			if err != nil {
-				msg.answer <- fmt.Errorf("send failed after %d retries: %w", retries-1, err)
-			} else {
-				if retries > 0 {
-					tcpLog.Infof("send ok after %d retries", retries)
-				}
-				msg.answer <- nil
-				close(msg.answer)
+		}
+		if err != nil {
+			msg.answer <- fmt.Errorf("send failed after %d retries: %w", retries-1, err)
+		} else {
+			if retries > 0 {
+				tcpLog.Infof("send ok after %d retries", retries)
 			}
+			msg.answer <- nil
+			close(msg.answer)
 		}
 	}
 }

@@ -49,11 +49,8 @@ func syncTime() {
 	}
 	f()
 	myticker := time.NewTicker(syncPeriod)
-	for {
-		select {
-		case <-myticker.C:
-			f()
-		}
+	for range myticker.C {
+		f()
 	}
 }
 
