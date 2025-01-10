@@ -305,7 +305,7 @@ func (auth *HTTPAuth) verifyPeerCertificate(_ [][]byte, verifiedChains [][]*x509
 		})
 		certDebugLogger.Trace("Verifying certificate")
 		for _, dnsName := range cert.DNSNames {
-			if auth.SANDNSName != "" && strings.ToLower(dnsName) == strings.ToLower(auth.SANDNSName) {
+			if auth.SANDNSName != "" && strings.EqualFold(dnsName, auth.SANDNSName) {
 				// If we find a matching DNS name in the SANs, we return non-error
 				// which specifies that we're done verifying with access granted.
 				return nil

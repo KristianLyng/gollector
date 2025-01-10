@@ -796,7 +796,7 @@ func VerifyOnlyRequiredConfigProps(componentConfig *map[string]interface{}, fami
 		}
 
 		for _, requiredProp := range requiredProps {
-			if strings.ToLower(prop) == strings.ToLower(requiredProp) {
+			if strings.EqualFold(prop, requiredProp) {
 				propertyDefined = true
 				break
 			}
