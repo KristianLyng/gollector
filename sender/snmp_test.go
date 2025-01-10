@@ -2,8 +2,8 @@ package sender_test
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"testing"
 	"time"
 
@@ -82,7 +82,7 @@ func TestSnmpSenderTest(t *testing.T) {
 }
 
 func loadJsonFile(t *testing.T, file string) (*skogul.Container, []byte) {
-	b, _ := ioutil.ReadFile(file)
+	b, _ := os.ReadFile(file)
 
 	container, _ := parser.SkogulJSON{}.Parse(b)
 

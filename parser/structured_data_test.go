@@ -25,7 +25,7 @@ package parser_test
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/telenornms/skogul/parser"
@@ -166,7 +166,7 @@ func TestStructuredDataParseNoContentResultsInOneMetric(t *testing.T) {
 }
 
 func TestStructuredDataOnDataset(t *testing.T) {
-	b, err := ioutil.ReadFile("./testdata/structured_data.txt")
+	b, err := os.ReadFile("./testdata/structured_data.txt")
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return
