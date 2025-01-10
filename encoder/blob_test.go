@@ -56,7 +56,7 @@ func TestBlobEncode(t *testing.T) {
 	if err != nil {
 		t.Errorf("Encoding failed: %s", err)
 	}
-	if bytes.Compare(b, raw) != 0 {
+	if !bytes.Equal(b, raw) {
 		t.Errorf("Encoding failed, new and old not the same: %v vs %v", b, raw)
 	}
 	m.Data["data"] = "not a byte array"
@@ -71,7 +71,7 @@ func TestBlobEncode(t *testing.T) {
 	if err != nil {
 		t.Errorf("Encoding failed: %s", err)
 	}
-	if bytes.Compare(b, raw3) != 0 {
-		t.Errorf("Encoding failed, the two don't compare")
+	if !bytes.Equal(b, raw3) {
+		t.Errorf("Encoding failed, the two don't compare: %v vs %v", b, raw3)
 	}
 }

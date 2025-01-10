@@ -47,7 +47,7 @@ func TestBlobParse(t *testing.T) {
 		t.Errorf("data[\"data\"] is not a byte slice")
 	}
 
-	if bytes.Compare(b2, b) != 0 {
+	if !bytes.Equal(b2, b) {
 		t.Errorf("data[\"data\"] is not %v!", b)
 	}
 

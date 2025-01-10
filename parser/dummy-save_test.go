@@ -56,7 +56,7 @@ func TestDummyStore(t *testing.T) {
 		t.Errorf("c == nil!")
 	}
 	newb, err := os.ReadFile(path)
-	if bytes.Compare(newb, b) != 0 {
+	if !bytes.Equal(newb, b) {
 		t.Errorf("newb != b! %v != %v", newb, b)
 	}
 	if err != nil {
