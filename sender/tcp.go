@@ -215,7 +215,7 @@ func (t *TCP) Send(c *skogul.Container) error {
 	if err != nil {
 		return fmt.Errorf("encoding failed: %w", err)
 	}
-	msg.answer = make(chan error, 0)
+	msg.answer = make(chan error)
 	t.queue <- msg
 	err = <-msg.answer
 	return err

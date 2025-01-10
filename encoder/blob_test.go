@@ -38,7 +38,7 @@ import (
 // array and multiple (two) metrics.
 func TestBlobEncode(t *testing.T) {
 	c := skogul.Container{}
-	c.Metrics = make([]*skogul.Metric, 1, 1)
+	c.Metrics = make([]*skogul.Metric, 1)
 	raw := []byte(`hei faderullan`)
 	raw2 := []byte(`kjell magne bondevik uten mellomnavn`)
 	raw3 := []byte(`hei faderullan:kjell magne bondevik uten mellomnavn`)

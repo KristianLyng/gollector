@@ -33,7 +33,7 @@ type Blob struct{}
 // data["data"] unprocessed
 func (x Blob) Parse(b []byte) (*skogul.Container, error) {
 	container := skogul.Container{}
-	container.Metrics = make([]*skogul.Metric, 1, 1)
+	container.Metrics = make([]*skogul.Metric, 1)
 	m := skogul.Metric{}
 	container.Metrics[0] = &m
 	container.Metrics[0].Data = make(map[string]interface{})
