@@ -91,7 +91,7 @@ func getFieldDoc(d interface{}) (map[string]FieldDoc, string) {
 		} else if typeString != "" {
 			t = typeString
 		}
-		fielddoc.Type = fmt.Sprintf("%s", t)
+		fielddoc.Type = t
 		if doc, ok := field.Tag.Lookup("doc"); ok {
 			fielddoc.Doc = doc
 			if ex, ok := field.Tag.Lookup("example"); ok {
