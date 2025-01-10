@@ -24,11 +24,12 @@
 package sender_test
 
 import (
+	"testing"
+	"time"
+
 	"github.com/telenornms/skogul"
 	"github.com/telenornms/skogul/parser"
 	"github.com/telenornms/skogul/sender"
-	"testing"
-	"time"
 )
 
 func TestCounter(t *testing.T) {

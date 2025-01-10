@@ -40,6 +40,7 @@ func check_m(t *testing.T, m *skogul.Metric, field string, want interface{}) {
 		t.Errorf("Transformer failed to enforce rule for metadata field \"%s\". Wanted \"%#v\"(%T), got \"%#v\"(%T)", field, want, want, m.Metadata[field], m.Metadata[field])
 	}
 }
+
 func check_d(t *testing.T, m *skogul.Metric, field string, want interface{}) {
 	t.Helper()
 	if m.Data[field] != want {
@@ -48,7 +49,7 @@ func check_d(t *testing.T, m *skogul.Metric, field string, want interface{}) {
 }
 
 func TestMetadata(t *testing.T) {
-	//now := time.Now()
+	// now := time.Now()
 
 	metric := skogul.Metric{}
 	metric.Metadata = make(map[string]interface{})
@@ -66,7 +67,6 @@ func TestMetadata(t *testing.T) {
 	}
 
 	err := metadata.Transform(&c)
-
 	if err != nil {
 		t.Errorf("Metadata() returned non-nil err: %v", err)
 	}
@@ -161,7 +161,6 @@ func TestExtract(t *testing.T) {
 	}
 
 	err := metadata.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -179,8 +178,8 @@ func TestExtract(t *testing.T) {
 		t.Errorf(`Data key %s is still set after extraction`, extracted_value_key)
 	}
 }
-func TestCopy(t *testing.T) {
 
+func TestCopy(t *testing.T) {
 	metric := skogul.Metric{}
 	testData := `
 	{
@@ -219,7 +218,6 @@ func TestCopy(t *testing.T) {
 	metadata := conf.Transformers["ok"].Transformer
 
 	err := metadata.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -251,7 +249,6 @@ func TestCopy(t *testing.T) {
 }
 
 func TestRenameData(t *testing.T) {
-
 	metric := skogul.Metric{}
 	testData := `
 	{
@@ -283,7 +280,6 @@ func TestRenameData(t *testing.T) {
 	metadata := conf.Transformers["ok"].Transformer
 
 	err := metadata.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -295,6 +291,7 @@ func TestRenameData(t *testing.T) {
 		t.Errorf(`Expected new_key_name to be mv_123, but it is: %s`, c.Metrics[0].Data["new_key_name"])
 	}
 }
+
 func TestFlattenMap(t *testing.T) {
 	path := "nestedData"
 	extracted_value_key := "key"
@@ -314,7 +311,6 @@ func TestFlattenMap(t *testing.T) {
 	}
 
 	err := data.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -357,7 +353,6 @@ func TestFlattenMapDefaultSeparator(t *testing.T) {
 	}
 
 	err := data.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -401,7 +396,6 @@ func TestFlattenMapCustomSeparator(t *testing.T) {
 	}
 
 	err := data.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -445,7 +439,6 @@ func TestFlattenMapDropSeparator(t *testing.T) {
 	}
 
 	err := data.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -488,7 +481,6 @@ func TestFlattenArray(t *testing.T) {
 	}
 
 	err := data.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -521,7 +513,6 @@ func TestFlattenArrayOfMaps(t *testing.T) {
 	}
 
 	err := data.Transform(&c)
-
 	if err != nil {
 		t.Error(err)
 	}

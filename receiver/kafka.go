@@ -27,10 +27,11 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"time"
+
 	kafka "github.com/segmentio/kafka-go"
 	kplain "github.com/segmentio/kafka-go/sasl/plain"
 	"github.com/telenornms/skogul"
-	"time"
 )
 
 var kafkaLog = skogul.Logger("receiver", "kafka")

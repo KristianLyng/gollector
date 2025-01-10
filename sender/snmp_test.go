@@ -53,7 +53,6 @@ func TestSnmpSenderTest(t *testing.T) {
 	`)
 
 	conf, err := config.Bytes([]byte(sconf))
-
 	if err != nil {
 		t.Errorf("Failed to load config: %v", err)
 		return
@@ -75,7 +74,6 @@ func TestSnmpSenderTest(t *testing.T) {
 	time.Sleep(time.Duration(5 * time.Second))
 
 	err = snmpSender.Send(c)
-
 	if err != nil {
 		log.Println(err)
 	}

@@ -126,7 +126,6 @@ func (hook *LogrusSkogulHook) Fire(entry *logrus.Entry) error {
 	entr["level"] = entry.Level
 
 	data, err := json.Marshal(entr)
-
 	if err != nil {
 		fmt.Println("Failed to convert log entry to json")
 		return err

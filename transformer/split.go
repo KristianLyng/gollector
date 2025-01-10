@@ -44,7 +44,6 @@ type DictSplit struct {
 
 // Transform splits the container assuming it has an array to split
 func (split *Split) Transform(c *skogul.Container) error {
-
 	metrics := c.Metrics
 
 	if split.Field != nil {
@@ -66,7 +65,6 @@ func (split *Split) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*skogu
 
 	for mi := range origMetrics {
 		splitObj, err := skogul.ExtractNestedObject(origMetrics[mi].Data, split.Field)
-
 		if err != nil {
 			if !split.Fail {
 				newMetrics = append(newMetrics, origMetrics[mi])
@@ -117,7 +115,6 @@ func (split *Split) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*skogu
 
 // Transform splits the container assuming it has a dictionary to split
 func (split *DictSplit) Transform(c *skogul.Container) error {
-
 	metrics := c.Metrics
 
 	if split.Field != nil {
@@ -141,7 +138,6 @@ func (split *DictSplit) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*s
 		var metrics map[string]interface{}
 		if len(split.Field) > 0 {
 			splitObj, err := skogul.ExtractNestedObject(origMetrics[mi].Data, split.Field)
-
 			if err != nil {
 				if !split.Fail {
 					newMetrics = append(newMetrics, origMetrics[mi])

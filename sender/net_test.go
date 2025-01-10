@@ -25,11 +25,12 @@ package sender_test
 
 import (
 	"fmt"
+	"testing"
+	"time"
+
 	"github.com/telenornms/skogul/config"
 	"github.com/telenornms/skogul/receiver"
 	"github.com/telenornms/skogul/sender"
-	"testing"
-	"time"
 )
 
 func TestTCPLine(t *testing.T) {
@@ -87,7 +88,6 @@ func TestTCPLine(t *testing.T) {
 }`)
 
 	conf, err := config.Bytes([]byte(sconf))
-
 	if err != nil {
 		t.Errorf("Failed to load config: %v", err)
 		return

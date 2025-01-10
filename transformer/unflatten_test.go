@@ -1,9 +1,10 @@
 package transformer_test
 
 import (
+	"testing"
+
 	"github.com/telenornms/skogul"
 	"github.com/telenornms/skogul/transformer"
-	"testing"
 )
 
 func TestTransformData(t *testing.T) {
@@ -37,7 +38,6 @@ func TestTransformData(t *testing.T) {
 	u := &transformer.Unflatten{}
 	u.Separator = "."
 	err := u.Transform(container)
-
 	if err != nil {
 		t.Errorf("%v", err)
 		return

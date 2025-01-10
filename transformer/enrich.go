@@ -25,8 +25,9 @@ package transformer
 
 import (
 	"fmt"
-	"github.com/telenornms/skogul"
 	"sync"
+
+	"github.com/telenornms/skogul"
 )
 
 // keyType identifies the type the hash returns

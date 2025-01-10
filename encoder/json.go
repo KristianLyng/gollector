@@ -2,6 +2,7 @@ package encoder
 
 import (
 	"encoding/json"
+
 	"github.com/telenornms/skogul"
 )
 
@@ -19,6 +20,7 @@ func (x JSON) Encode(c *skogul.Container) ([]byte, error) {
 	}
 	return b, err
 }
+
 func (x JSON) EncodeMetric(m *skogul.Metric) ([]byte, error) {
 	var b []byte
 	var err error

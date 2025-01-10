@@ -63,7 +63,6 @@ type File struct {
 }
 
 func (f *File) init() {
-
 	var err error
 	var file *os.File
 
@@ -173,7 +172,6 @@ func (f *File) Send(c *skogul.Container) error {
 	}
 
 	b, err := f.Encoder.E.Encode(c)
-
 	if err != nil {
 		return fmt.Errorf("file sender unable to encode: %w", err)
 	}

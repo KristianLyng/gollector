@@ -60,7 +60,6 @@ func (p *USP_Parser) Parse(b []byte) (*skogul.Container, error) {
 	metadata := p.createRecordMetadata(record, recordData)
 
 	json, err := p.extractJSON(recordData["event_data"].(string))
-
 	if err != nil {
 		atomic.AddUint64(&p.stats.FailedToJsonUnmarshal, 1)
 		return nil, fmt.Errorf("failed to unmarshal json: %w", err)
@@ -141,7 +140,6 @@ func (p *USP_Parser) extractJSON(s string) (map[string]interface{}, error) {
 func (p *USP_Parser) createRecordData(t *usp.Record) (map[string]interface{}, error) {
 	var jsonMap = make(map[string]interface{})
 	payload, err := p.getRecordMsgPayload(t.GetNoSessionContext().GetPayload())
-
 	if err != nil {
 		return nil, err
 	}

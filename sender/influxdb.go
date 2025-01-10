@@ -111,7 +111,7 @@ func (idb *InfluxDB) Send(c *skogul.Container) error {
 		measurement := idb.Measurement
 		if len(m.Data) == 0 {
 			// must have SOME data
-			// XXX: Should rneport.
+			// XXX: Should report.
 			continue
 		}
 		if idb.MeasurementFromMetadata != "" {

@@ -87,7 +87,6 @@ func (r *Rabbitmq) init() {
 		false,
 		nil,
 	)
-
 	if err != nil {
 		rabbitmqLog.WithError(err).Error("Failed to declare a queue")
 		return
@@ -123,7 +122,6 @@ func (r *Rabbitmq) Send(c *skogul.Container) error {
 			Body:        body,
 		},
 	)
-
 	if err != nil {
 		r.channel.Close()
 		return err

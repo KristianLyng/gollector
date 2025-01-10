@@ -2,10 +2,11 @@ package transformer
 
 import (
 	"fmt"
-	"github.com/dolmen-go/jsonptr"
-	"github.com/telenornms/skogul"
 	"regexp"
 	"sync"
+
+	"github.com/dolmen-go/jsonptr"
+	"github.com/telenornms/skogul"
 )
 
 type Ban struct {

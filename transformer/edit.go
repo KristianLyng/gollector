@@ -100,7 +100,6 @@ func (replace *Replace) Verify() error {
 		return skogul.MissingArgument("Regex")
 	}
 	regex, err := regexp.Compile(replace.Regex)
-
 	if err != nil {
 		return fmt.Errorf("replace transformer regex `%s' didn't compile: %w", replace.Regex, err)
 	}
@@ -176,7 +175,6 @@ func (replace *ReplaceData) Verify() error {
 		return skogul.MissingArgument("Regex")
 	}
 	regex, err := regexp.Compile(replace.Regex)
-
 	if err != nil {
 		return fmt.Errorf("replace transformer regex `%s' didn't compile: %w", replace.Regex, err)
 	}

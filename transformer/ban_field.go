@@ -2,9 +2,10 @@ package transformer
 
 import (
 	"fmt"
-	"github.com/telenornms/skogul"
 	"regexp"
 	"sync"
+
+	"github.com/telenornms/skogul"
 )
 
 type BanField struct {

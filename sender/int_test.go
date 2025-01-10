@@ -24,10 +24,11 @@
 package sender_test
 
 import (
+	"testing"
+
 	"github.com/telenornms/skogul"
 	"github.com/telenornms/skogul/config"
 	"github.com/telenornms/skogul/sender"
-	"testing"
 )
 
 func TestNull(t *testing.T) {

@@ -24,9 +24,10 @@
 package skogul_test
 
 import (
-	"github.com/telenornms/skogul"
 	"testing"
 	"time"
+
+	"github.com/telenornms/skogul"
 )
 
 func wait() {

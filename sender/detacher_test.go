@@ -24,10 +24,11 @@
 package sender_test
 
 import (
-	"github.com/telenornms/skogul"
-	"github.com/telenornms/skogul/sender"
 	"testing"
 	"time"
+
+	"github.com/telenornms/skogul"
+	"github.com/telenornms/skogul/sender"
 )
 
 func TestDetacher(t *testing.T) {

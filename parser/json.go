@@ -66,7 +66,6 @@ type JSON struct{}
 
 // Parse accepts a byte slice of JSON data and marshals it into an empty skogul.Container
 func (data JSON) Parse(b []byte) (*skogul.Container, error) {
-
 	// The Validate() func of a container expects a timestamp to be valid.
 	// Better way to fix?
 	time := skogul.Now()
@@ -76,12 +75,10 @@ func (data JSON) Parse(b []byte) (*skogul.Container, error) {
 	}
 
 	err := json.Unmarshal(b, &metric.Data)
-
 	if err != nil {
 		// Try to marshal data in an array form
 		var array []interface{}
 		err = json.Unmarshal(b, &array)
-
 		if err != nil {
 			return nil, err
 		}

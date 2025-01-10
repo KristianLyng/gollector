@@ -24,9 +24,10 @@
 package sender_test
 
 import (
+	"testing"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/telenornms/skogul/config"
-	"testing"
 )
 
 func TestInfluxDB(t *testing.T) {

@@ -93,7 +93,6 @@ func (u *Unflatten) convertValues(d *skogul.Metric) (*skogul.Metric, error) {
 	for _, k := range keys {
 		s := strings.Split(k, u.Separator)
 		tmp[s[0]], err = u.recursivelyCreateMap(tmp[s[0]].(map[string]interface{}), s[1:], d.Data[k], 0)
-
 		if err != nil {
 			return nil, err
 		}

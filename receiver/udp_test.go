@@ -25,25 +25,28 @@ package receiver_test
 
 import (
 	"fmt"
-	"github.com/telenornms/skogul"
-	"github.com/telenornms/skogul/config"
-	"github.com/telenornms/skogul/receiver"
-	"github.com/telenornms/skogul/sender"
 	"net"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/telenornms/skogul"
+	"github.com/telenornms/skogul/config"
+	"github.com/telenornms/skogul/receiver"
+	"github.com/telenornms/skogul/sender"
 )
 
 // FIXME: This file is very fond of global scope and init(), mainly for the
 // sake of benchmarks... and it's a bit messy.
-var uConfig *config.Config
-var pFile []byte
-var u1 *net.UDPConn
-var u2 *net.UDPConn
-var u3 *net.UDPConn
-var u4 *net.UDPConn
-var pJSON = []byte("{\"metrics\":[{\"timestamp\":\"2019-03-15T11:08:02+01:00\",\"metadata\":{\"key\":\"value\"},\"data\":{\"string\":\"text\",\"float\":1.11,\"integer\":5}}]}")
+var (
+	uConfig *config.Config
+	pFile   []byte
+	u1      *net.UDPConn
+	u2      *net.UDPConn
+	u3      *net.UDPConn
+	u4      *net.UDPConn
+	pJSON   = []byte("{\"metrics\":[{\"timestamp\":\"2019-03-15T11:08:02+01:00\",\"metadata\":{\"key\":\"value\"},\"data\":{\"string\":\"text\",\"float\":1.11,\"integer\":5}}]}")
+)
 
 func readProtobufFile(file string) []byte {
 	b := make([]byte, 9000)
@@ -120,7 +123,6 @@ func init() {
 		}
 	}
 }`))
-
 	if err != nil {
 		fmt.Printf("Failed to load config: %v", err)
 		os.Exit(1)
@@ -193,11 +195,13 @@ func sendUDP(u *net.UDPConn, b []byte) {
 	}
 }
 
-type dummySender struct{}
-type dummyJSONSender struct {
-	sock       *net.UDPConn
-	iterations int
-}
+type (
+	dummySender     struct{}
+	dummyJSONSender struct {
+		sock       *net.UDPConn
+		iterations int
+	}
+)
 
 func (d *dummyJSONSender) Send(c *skogul.Container) error {
 	for i := 0; i < d.iterations; i++ {

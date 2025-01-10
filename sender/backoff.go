@@ -24,9 +24,10 @@
 package sender
 
 import (
-	"github.com/telenornms/skogul"
 	"sync/atomic"
 	"time"
+
+	"github.com/telenornms/skogul"
 )
 
 // Backoff sender will send to Next, but retry up to Retries times, with

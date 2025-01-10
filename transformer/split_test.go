@@ -124,6 +124,7 @@ func TestSplit(t *testing.T) {
 		t.Errorf(`Expected Metrics Metadata key arrayidx to contain key arrayidx of val '%d' but got '%v'`, 1, c.Metrics[4].Metadata["arrayidx"])
 	}
 }
+
 func TestSplit_dict(t *testing.T) {
 	var c skogul.Container
 	testData := `
@@ -198,7 +199,6 @@ func TestSplit_dict(t *testing.T) {
 	if c.Metrics[test2].Metadata["keyname"] != "barkey" {
 		t.Errorf(`Expected Metrics Metadata key 'keyname' to have value of 'barkey', but got '%s'`, c.Metrics[test2].Metadata["keyname"])
 	}
-
 }
 
 func TestTopDict(t *testing.T) {

@@ -84,6 +84,7 @@ func (x *AVRO) Parse(b []byte) (*skogul.Container, error) {
 
 	return &container, err
 }
+
 func (x *AVRO) ParseMetric(m *skogul.Metric) ([]byte, error) {
 	return nil, fmt.Errorf("not supported")
 }

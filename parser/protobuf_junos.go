@@ -74,7 +74,6 @@ func (x *ProtoBuf) Parse(b []byte) (*skogul.Container, error) {
 	x.once.Do(x.initStats)
 	atomic.AddUint64(&x.stats.Received, 1)
 	parsedProtoBuf, err := parseTelemetryStream(b)
-
 	if err != nil {
 		atomic.AddUint64(&x.stats.ParseErrors, 1)
 		return nil, fmt.Errorf("initial parsing failed: %w", err)
