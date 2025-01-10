@@ -636,7 +636,6 @@ happens to be LGPLv2 (or later). See LICENSE for details.
 * Copyright (c) 2019-2022 - Telenor Norge AS
 
 `)
-
 }
 
 // helpModules iterates over a ModuleMap, printing rst-formatted help for
@@ -672,7 +671,7 @@ func fieldDoc(inFields map[string]config.FieldDoc) {
 	for _, n := range fields {
 		f := inFields[n]
 		fmt.Printf("``%s - %s``\n\t", strings.ToLower(n), f.Type)
-		fmt.Printf("%s\n\n", strings.Replace(f.Doc, "\n", "\n\t", -1))
+		fmt.Printf("%s\n\n", strings.ReplaceAll(f.Doc, "\n", "\n\t"))
 		if f.Example != "" {
 			fmt.Printf("\tExample(s): %s\n\n", f.Example)
 		}
