@@ -70,7 +70,7 @@ func init() {
 	Auto.Add(skogul.Module{
 		Name:     "protobuf_usp",
 		Aliases:  []string{"usp"},
-		Alloc:    func() interface{} { return &USP_Parser{} },
+		Alloc:    func() interface{} { return &USPParser{} },
 		Help:     "Parse Usp message contained within Usp record in the form of protocol buffers.",
 		AutoMake: true,
 	})

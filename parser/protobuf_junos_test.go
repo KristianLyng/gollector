@@ -30,7 +30,7 @@ import (
 	"testing"
 	"time"
 
-	//proto "github.com/golang/protobuf/proto"
+	// proto "github.com/golang/protobuf/proto"
 	"github.com/gogo/protobuf/proto"
 	"github.com/telenornms/skogul"
 	junos_protobuf_telemetry "github.com/telenornms/skogul/gen/junos/telemetry"
@@ -168,8 +168,8 @@ func TestParseJunosProtobufTelemetryStreamOptics(t *testing.T) {
 		return
 	}
 
-	protobuf_parser := parser.ProtoBuf{}
-	c, err := protobuf_parser.Parse(bytes)
+	protobufParser := parser.ProtoBuf{}
+	c, err := protobufParser.Parse(bytes)
 	if err != nil {
 		t.Errorf("Failed to parse optics diag lane stats protobuf data, err: %v", err)
 	}
@@ -201,8 +201,8 @@ func TestParseJunosProtobufTelemetryStreamOpticsNegativeInf(t *testing.T) {
 		return
 	}
 
-	protobuf_parser := parser.ProtoBuf{}
-	_, err = protobuf_parser.Parse(bytes)
+	protobufParser := parser.ProtoBuf{}
+	_, err = protobufParser.Parse(bytes)
 	if err != nil {
 		t.Errorf("Expected parsing -Inf values to NOT return an error, ref issue #194 which should now be ... resolved.")
 		return
