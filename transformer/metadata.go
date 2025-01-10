@@ -144,7 +144,7 @@ func (meta *Metadata) Transform(c *skogul.Container) error {
 
 func (meta *Metadata) Deprecated() error {
 	if len(meta.ExtractFromData) > 0 {
-		return fmt.Errorf("ExtractFromData is replaced by CopyFromData. ExtractFromData will be removed in future versions.")
+		return fmt.Errorf("`ExtractFromData` is replaced by `CopyFromData`. `ExtractFromData` will be removed in future versions")
 	}
 	return nil
 }

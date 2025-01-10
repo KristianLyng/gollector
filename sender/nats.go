@@ -71,7 +71,7 @@ func (n *Nats) Verify() error {
 
 	// User Credentials, use either.
 	if n.UserCreds != "" && n.NKeyFile != "" {
-		return fmt.Errorf("Please configure usercreds or nkeyfile.")
+		return fmt.Errorf("please configure usercreds or nkeyfile")
 	}
 
 	return nil
@@ -108,7 +108,7 @@ func (n *Nats) init() error {
 
 		cp, err := skogul.GetCertPool(n.TLSCACert)
 		if err != nil {
-			n.initError = fmt.Errorf("Failed to initialize root CA pool")
+			n.initError = fmt.Errorf("failed to initialize root CA pool")
 		}
 
 		if n.initError == nil {
@@ -146,7 +146,7 @@ func (n *Nats) init() error {
 	var err error
 	n.natsCon, err = nats.Connect(n.Servers, *n.conOpts...)
 	if err != nil {
-		n.initError = fmt.Errorf("Encountered an error while connecting to Nats: %v", err)
+		n.initError = fmt.Errorf("encountered an error while connecting to Nats: %v", err)
 	}
 	return err
 }

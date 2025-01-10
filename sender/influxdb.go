@@ -214,7 +214,7 @@ func (idb *InfluxDB) Send(c *skogul.Container) error {
 			body = []byte(fmt.Sprintf("No reply body. Request: %s", buffer.Bytes()))
 		}
 
-		return fmt.Errorf("Influx sender(%s) failed to send container (%s). Bad response from InfluxDB: %s - %s", skogul.Identity[idb], c.Describe(), resp.Status, string(body))
+		return fmt.Errorf("influx sender(%s) failed to send container (%s). Bad response from InfluxDB: %s - %s", skogul.Identity[idb], c.Describe(), resp.Status, string(body))
 	}
 	return nil
 }

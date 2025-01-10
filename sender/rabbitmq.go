@@ -99,7 +99,7 @@ func (r *Rabbitmq) Send(c *skogul.Container) error {
 	})
 
 	if r.channel == nil {
-		return fmt.Errorf("No active rabbitmq connections")
+		return fmt.Errorf("no active rabbitmq connections")
 	}
 
 	body, err := r.Encoder.E.Encode(c)

@@ -59,7 +59,7 @@ func (n *Net) Send(c *skogul.Container) error {
 		return fmt.Errorf("unable to send (all) data: %w", err)
 	}
 	if nbytes < len(b) {
-		return fmt.Errorf("write succeeded, but not all data written. Wrote %d of %d bytes.", nbytes, len(b))
+		return fmt.Errorf("write succeeded, but not all data written. Wrote %d of %d bytes", nbytes, len(b))
 	}
 	return nil
 }

@@ -218,7 +218,7 @@ func (ht *HTTP) sendBytes(b []byte) error {
 	req, err := http.NewRequest("POST", ht.URL, &buffer)
 	if err != nil {
 		atomic.AddUint64(&ht.stats.Errors, 1)
-		return fmt.Errorf("Failed to create a HTTP request (we are %s). Error: %w", skogul.Identity[ht], err)
+		return fmt.Errorf("failed to create a HTTP request (we are %s). Error: %w", skogul.Identity[ht], err)
 	}
 	for header, value := range ht.Headers {
 		req.Header.Add(http.CanonicalHeaderKey(header), value)
@@ -226,14 +226,14 @@ func (ht *HTTP) sendBytes(b []byte) error {
 	resp, err := ht.client.Do(req)
 	if err != nil {
 		atomic.AddUint64(&ht.stats.RequestErrors, 1)
-		return fmt.Errorf("Unable to POST request (we are %s). Error: %w", skogul.Identity[ht], err)
+		return fmt.Errorf("unable to POST request (we are %s). Error: %w", skogul.Identity[ht], err)
 	}
 	if resp.ContentLength > 0 {
 		tmp := make([]byte, resp.ContentLength)
 		if n, err := io.ReadFull(resp.Body, tmp); err != nil {
 			atomic.AddUint64(&ht.stats.Errors, 1)
 			resp.Body.Close()
-			return fmt.Errorf("Failed to read HTTP response body, ContentLength said %d, got %d. Error: %w", resp.ContentLength, n, err)
+			return fmt.Errorf("failed to read HTTP response body, ContentLength said %d, got %d. Error: %w", resp.ContentLength, n, err)
 		}
 	}
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
@@ -284,7 +284,7 @@ func (ht *HTTP) Verify() error {
 		return fmt.Errorf("failed to read custom root CA (RootCA: %s): %w", ht.RootCA, err)
 	}
 	if (ht.Certfile != "" && ht.Keyfile == "") || (ht.Certfile == "" && ht.Keyfile != "") {
-		return fmt.Errorf("either provide BOTH Certfile AND Keyfile, or neither.")
+		return fmt.Errorf("either provide BOTH Certfile AND Keyfile, or neither")
 	}
 	return nil
 }

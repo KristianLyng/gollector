@@ -183,7 +183,7 @@ func (f *File) Send(c *skogul.Container) error {
 
 func (f *File) Deprecated() error {
 	if f.Path != "" {
-		return fmt.Errorf("config option Path is replaced by option File, Path will be removed in future versions.")
+		return fmt.Errorf("config option Path is replaced by option File, Path will be removed in future versions")
 	}
 	return nil
 }

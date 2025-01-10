@@ -91,10 +91,10 @@ func (sw *Switch) Transform(c *skogul.Container) error {
 func (sw *Switch) Verify() error {
 	for _, cas := range sw.Cases {
 		if len(cas.Transformers) == 0 {
-			return fmt.Errorf("No transformers defined for switch case '%s'", cas.When)
+			return fmt.Errorf("no transformers defined for switch case '%s'", cas.When)
 		}
 		if cas.Exists && cas.Is != nil {
-			return fmt.Errorf("Case for '%s' configured with both Exists and Is. Only one of these makes sense.", cas.When)
+			return fmt.Errorf("case for '%s' configured with both Exists and Is. Only one of these makes sense", cas.When)
 		}
 	}
 	return nil

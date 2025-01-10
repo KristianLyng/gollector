@@ -69,8 +69,8 @@ func (n *Nats) Verify() error {
 	}
 	// User Credentials
 	if n.UserCreds != "" && n.NKeyFile != "" {
-		//Cred file contains nkey.
-		return fmt.Errorf("Please configure usercreds or nkeyfile.")
+		// Cred file contains nkey.
+		return fmt.Errorf("please configure usercreds or nkeyfile")
 	}
 
 	return nil
@@ -102,7 +102,7 @@ func (n *Nats) Start() error {
 
 		cp, err := skogul.GetCertPool(n.TLSCACert)
 		if err != nil {
-			return fmt.Errorf("Failed to initialize root CA pool")
+			return fmt.Errorf("failed to initialize root CA pool")
 		}
 
 		config := &tls.Config{
