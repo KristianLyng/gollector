@@ -90,5 +90,4 @@ func (tl *TCPLine) handleConnection(conn *net.TCPConn) {
 		tcpLog.WithError(err).Error("Error reading line")
 		return
 	}
-	return
 }

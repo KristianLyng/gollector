@@ -145,7 +145,6 @@ func (n *Nats) Start() error {
 		if err := n.Handler.H.Handle(msg.Data); err != nil {
 			natsLog.WithError(err).Warn("Unable to handle Nats message")
 		}
-		return
 	}
 
 	n.wg.Add(1)
