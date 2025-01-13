@@ -60,7 +60,7 @@ func TestBlobEncode(t *testing.T) {
 		t.Errorf("Encoding failed, new and old not the same: %v vs %v", b, raw)
 	}
 	m.Data["data"] = "not a byte array"
-	b, err = enc.Encode(&c)
+	_, err = enc.Encode(&c)
 	if err == nil {
 		t.Errorf("Encoding failed: %s", err)
 	}
