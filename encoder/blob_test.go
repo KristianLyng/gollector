@@ -42,12 +42,19 @@ func TestBlobEncode(t *testing.T) {
 	raw := []byte(`hei faderullan`)
 	raw2 := []byte(`kjell magne bondevik uten mellomnavn`)
 	raw3 := []byte(`hei faderullan:kjell magne bondevik uten mellomnavn`)
-	m := skogul.Metric{}
-	m.Data = make(map[string]interface{})
-	m.Data["data"] = raw
-	m2 := skogul.Metric{}
-	m2.Data = make(map[string]interface{})
-	m2.Data["data"] = raw2
+
+	m := skogul.Metric{
+		Data: map[string]interface{}{
+			"data": raw,
+		},
+	}
+
+	m2 := skogul.Metric{
+		Data: map[string]interface{}{
+			"data": raw2,
+		},
+	}
+
 	c.Metrics[0] = &m
 
 	enc := encoder.Blob{}
