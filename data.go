@@ -263,7 +263,7 @@ func (c Container) String() string {
 		dataLog.WithError(err).Error("Unable to marshal JSON")
 		return ""
 	}
-	return fmt.Sprintf("%s", b)
+	return string(b)
 }
 
 /*
