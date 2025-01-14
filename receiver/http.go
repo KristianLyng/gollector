@@ -232,7 +232,7 @@ func (htt *HTTP) Start() error {
 	}
 	if htt.Handlers["/"] == nil {
 		f := fallback{}
-		if htt.Auth != nil && len(htt.Auth) > 0 {
+		if len(htt.Auth) > 0 {
 			f.hasAuth = true
 		} else {
 			f.hasAuth = false
@@ -321,7 +321,7 @@ func (auth *HTTPAuth) verifyPeerCertificate(_ [][]byte, verifiedChains [][]*x509
 
 // Verify verifies the configuration for the HTTP receiver
 func (htt *HTTP) Verify() error {
-	if htt.Handlers == nil || len(htt.Handlers) == 0 {
+	if len(htt.Handlers) == 0 {
 		return skogul.MissingArgument("Handlers")
 	}
 

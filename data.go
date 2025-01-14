@@ -248,7 +248,7 @@ func (m Metric) Describe() string {
 // without excessively spamming the log.
 func (c Container) Describe() string {
 	m0 := ""
-	if c.Metrics != nil && len(c.Metrics) > 0 {
+	if len(c.Metrics) > 0 {
 		m0 = c.Metrics[0].Describe()
 	}
 	return fmt.Sprintf("Container(%d metrics, Metric[0]: %s", len(c.Metrics), m0)
