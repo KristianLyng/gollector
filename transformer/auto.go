@@ -135,4 +135,10 @@ func init() {
 		Help:     "Remove single fields in a metric based on a regular expression criteria",
 		AutoMake: false,
 	})
+	Auto.Add(skogul.Module{
+		Name:    "huwtodbm",
+		Aliases: []string{},
+		Alloc:   func() interface{} { return &HuWtoDBM{} },
+		Help:    "Translate from uW to DBM.",
+	})
 }
