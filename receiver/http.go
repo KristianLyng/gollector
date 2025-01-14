@@ -117,7 +117,7 @@ func (auth *HTTPAuth) auth(r *http.Request) error {
 	return fmt.Errorf("no matching authentication method")
 }
 
-func answer(w http.ResponseWriter, r *http.Request, code int, inerr error) {
+func answer(w http.ResponseWriter, code int, inerr error) {
 	answer := "OK"
 
 	w.WriteHeader(code)
@@ -133,7 +133,7 @@ func answer(w http.ResponseWriter, r *http.Request, code int, inerr error) {
 	fmt.Fprintf(w, "%s\n", b)
 }
 
-func (rcvr receiver) handle(w http.ResponseWriter, r *http.Request) (int, error) {
+func (rcvr receiver) handle(r *http.Request) (int, error) {
 	if rcvr.auth != nil {
 		if err := rcvr.auth.auth(r); err != nil {
 			return 401, err
@@ -164,7 +164,7 @@ func (rcvr receiver) handle(w http.ResponseWriter, r *http.Request) (int, error)
 
 // Core HTTP handler
 func (rcvr receiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	code, err := rcvr.handle(w, r)
+	code, err := rcvr.handle(r)
 	if err != nil {
 		httpLog.WithFields(log.Fields{
 			"code":          code,
@@ -178,7 +178,7 @@ func (rcvr receiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			"requestUri":    r.RequestURI,
 			"ContentLength": r.ContentLength}).Infof("HTTP request ok")
 	}
-	answer(w, r, code, err)
+	answer(w, code, err)
 }
 
 // Fallback HTTP handler
@@ -198,7 +198,7 @@ func (f fallback) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		code = 401
 		err = fmt.Errorf("Invalid credentials")
 	}
-	answer(w, r, code, err)
+	answer(w, code, err)
 }
 
 // loadClientCertificateCAs loads a given list of strings as paths of
