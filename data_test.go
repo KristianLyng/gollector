@@ -67,7 +67,7 @@ func TestString(t *testing.T) {
 		t.Errorf("JSON.Parse(b) failed: %v", err)
 		return
 	}
-	got := fmt.Sprintf("%s", c)
+	got := c.String()
 
 	if got != want {
 		t.Errorf("String() on container failed, wanted %v, got %v", want, got)
@@ -248,7 +248,7 @@ func TestString_invalid(t *testing.T) {
 	metric1.Data["ch"] = make(chan string)
 	c.Metrics = []*skogul.Metric{&metric1}
 
-	str := fmt.Sprintf("%s", c)
+	str := c.String()
 	want := ""
 	if str != want {
 		t.Errorf("Invalid metrics marshalled successfully. Wanted %s, got %s", want, str)
