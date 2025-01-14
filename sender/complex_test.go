@@ -40,8 +40,6 @@ var validContainer = skogul.Container{}
 func init() {
 
 	now := time.Now()
-	rand.Seed(now.Unix())
-
 	m := skogul.Metric{}
 	m.Time = &now
 	m.Metadata = make(map[string]interface{})

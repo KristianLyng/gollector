@@ -46,7 +46,6 @@ func deleteFile(t *testing.T, file string) {
 
 func lfMakeFile(t *testing.T) (string, error) {
 	t.Helper()
-	rand.Seed(int64(time.Now().Nanosecond()))
 	file := fmt.Sprintf("%s/skogul-linefiletest-%d-%d", os.TempDir(), os.Getpid(), rand.Int())
 
 	_, err := os.Stat(file)
