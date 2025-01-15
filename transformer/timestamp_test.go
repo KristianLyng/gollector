@@ -25,16 +25,16 @@ package transformer_test
 
 import (
 	"encoding/json"
-	"github.com/telenornms/skogul"
-	"github.com/telenornms/skogul/transformer"
 	"io/ioutil"
 	"testing"
 	"time"
+
+	"github.com/telenornms/skogul"
+	"github.com/telenornms/skogul/transformer"
 )
 
 func TestTimestampParse(t *testing.T) {
 	b, err := ioutil.ReadFile("./testdata/data-with-timestamp.json")
-
 	if err != nil {
 		t.Errorf("Could not read json data file: %v", err)
 		return
@@ -42,7 +42,6 @@ func TestTimestampParse(t *testing.T) {
 
 	var jsonData map[string]interface{}
 	err = json.Unmarshal(b, &jsonData)
-
 	if err != nil {
 		t.Errorf("Could not parse JSON data: %v", err)
 		return
@@ -56,7 +55,6 @@ func TestTimestampParse(t *testing.T) {
 	}
 
 	jsonTimestamp, err := time.Parse(time.RFC3339, jTimestamp)
-
 	if err != nil {
 		t.Errorf("Failed to parse original timestamp from JSON file: %v (%s)", err, jTimestamp)
 		return

@@ -119,7 +119,6 @@ func TestStructuredDataParseExample4(t *testing.T) {
 			return
 		}
 	}
-
 }
 
 func TestStructuredDataParseNoHostnameAllowed(t *testing.T) {

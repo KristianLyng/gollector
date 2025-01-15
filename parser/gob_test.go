@@ -36,20 +36,19 @@ func TestGOB(t *testing.T) {
 	by := []byte("{\"metrics\":[{\"timestamp\":\"0001-01-01T00:00:00Z\",\"metadata\":{\"key\":\"value\"}}]}")
 	p := parser.GOB{}
 	e := encoder.GOB{}
-	var data_container *skogul.Container
-	err := json.Unmarshal(by, &data_container)
+	var dataContainer *skogul.Container
+	err := json.Unmarshal(by, &dataContainer)
 	if err != nil {
 		t.Logf("Failed to parse GOB schema and test data preparation error: %v", err)
 		t.FailNow()
 	}
-	b, err := e.Encode(data_container)
+	b, err := e.Encode(dataContainer)
 	if err != nil {
 		t.Logf("Failed to read test data file: %v", err)
 		t.FailNow()
 	}
 
 	container, err := p.Parse(b)
-
 	if err != nil {
 		t.Logf("Failed to parse GOB data: %v", err)
 		t.FailNow()

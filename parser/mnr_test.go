@@ -40,9 +40,9 @@ func TestMNRLineParsed(t *testing.T) {
 		return
 	}
 
-	expected_time := time.Unix(1599730066, 0)
-	if *c.Metrics[0].Time != expected_time {
-		t.Errorf("Expected time to be %s but got %s", expected_time, *c.Metrics[0].Time)
+	expectedTime := time.Unix(1599730066, 0)
+	if *c.Metrics[0].Time != expectedTime {
+		t.Errorf("Expected time to be %s but got %s", expectedTime, *c.Metrics[0].Time)
 	}
 }
 
@@ -56,9 +56,9 @@ func TestMNRChangedLineParsed(t *testing.T) {
 		return
 	}
 
-	expected_time := time.Unix(1599730066, 0)
-	if *c.Metrics[0].Time != expected_time {
-		t.Errorf("Expected time to be %s but got %s", expected_time, *c.Metrics[0].Time)
+	expectedTime := time.Unix(1599730066, 0)
+	if *c.Metrics[0].Time != expectedTime {
+		t.Errorf("Expected time to be %s but got %s", expectedTime, *c.Metrics[0].Time)
 	}
 }
 

@@ -55,8 +55,7 @@ func TestByte_ok(t *testing.T) {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "senders": {
     "tnet_alarms": {
@@ -134,7 +133,6 @@ func TestByte_ok(t *testing.T) {
 	if c != nil {
 		t.Errorf("Bytes() with bad data returned valid config.")
 	}
-
 }
 
 func TestDefaultModules(t *testing.T) {
@@ -143,8 +141,7 @@ func TestDefaultModules(t *testing.T) {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "handlers": {
     "plain": {
@@ -171,14 +168,14 @@ func TestDefaultModules(t *testing.T) {
 		t.Errorf("Bytes() returned nil config")
 	}
 }
+
 func TestUndefinedParser(t *testing.T) {
 	defer func() {
 		if skogul.AssertErrors > 0 {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "handlers": {
     "plain": {
@@ -209,8 +206,7 @@ func TestNamedParser(t *testing.T) {
 			t.Errorf("Byte() paniced")
 		}
 	}()
-	var okData []byte
-	okData = []byte(`
+	okData := []byte(`
 {
   "parsers": {
     "jens": {
@@ -453,6 +449,7 @@ func Test_syntaxError(t *testing.T) {
 		t.Errorf("Expected config to pass: %v", err)
 	}
 }
+
 func TestFindSuperfluousReceiverConfigPropertiesFromFullConfig(t *testing.T) {
 	rawConfig := []byte(`{"receivers": {
 		"foo": {
@@ -495,7 +492,6 @@ func TestFindSuperfluousReceiverConfigProperties(t *testing.T) {
 
 	var c map[string]interface{}
 	err := json.Unmarshal(rawConfig, &c)
-
 	if err != nil {
 		t.Error("Failed to parse config")
 	}
@@ -526,7 +522,6 @@ func TestBytesWorksWithSuperfluousReceiverConfigProperties(t *testing.T) {
 	}`)
 
 	_, err := config.Bytes(rawConfig)
-
 	if err != nil {
 		t.Errorf("Failed to Bytes() config: %s", err)
 	}
@@ -574,7 +569,6 @@ func TestReadConfigWithoutSuperfluousParamsNoSuperfluousParams(t *testing.T) {
 	}
 
 	_, err = config.Bytes(rawConfig)
-
 	if err != nil {
 		t.Errorf("Failed to Bytes() config: %s", err)
 	}
@@ -582,7 +576,6 @@ func TestReadConfigWithoutSuperfluousParamsNoSuperfluousParams(t *testing.T) {
 
 func TestReadConfigFiles(t *testing.T) {
 	c, err := config.ReadFiles("testdata/configs")
-
 	if err != nil {
 		t.Error("Error from config read files", err)
 	}

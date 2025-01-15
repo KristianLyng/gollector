@@ -33,7 +33,6 @@ import (
 
 func TestPrometheus(t *testing.T) {
 	b, err := os.ReadFile("./testdata/prometheus_testdata")
-
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return
@@ -42,13 +41,12 @@ func TestPrometheus(t *testing.T) {
 	p := parser.Prometheus{}
 
 	container, err := p.Parse(b)
-
 	if err != nil {
 		t.Logf("Error while parsing the data. %v", err)
 		t.FailNow()
 	}
 
-	//expectedTime := 1608520832877
+	// expectedTime := 1608520832877
 	metricKey1 := "dialer_name"
 	metricValue1 := "federate"
 	metricKey2 := "instance"

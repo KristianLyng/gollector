@@ -197,7 +197,6 @@ func TestParseInvalidContainerAndTransformItValid(t *testing.T) {
 
 	// Parse the data using the custom JSON handler
 	c, err := h.Parse(data)
-
 	if err != nil {
 		t.Error("Failed to parse json data", err)
 		return
@@ -211,7 +210,6 @@ func TestParseInvalidContainerAndTransformItValid(t *testing.T) {
 	h.Transformers = []skogul.Transformer{&parseTimestamp}
 
 	err = h.Transform(c)
-
 	// Make sure the transformer validates the container successfully
 	if err != nil {
 		t.Error("Failed to transform container", err)
@@ -230,6 +228,7 @@ func TestSecretIsRedacted(t *testing.T) {
 		t.Errorf("Expected secret to be redacted, but got %s", secret.String())
 	}
 }
+
 func TestSecretIsExposed(t *testing.T) {
 	secret := skogul.Secret("hunter2")
 	if secret.Expose() != "hunter2" {

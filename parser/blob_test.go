@@ -50,5 +50,4 @@ func TestBlobParse(t *testing.T) {
 	if bytes.Compare(b2, b) != 0 {
 		t.Errorf("data[\"data\"] is not %v!", b)
 	}
-
 }

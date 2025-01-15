@@ -93,7 +93,7 @@ func (w *tcpWorker) connect() error {
 	if !ok {
 		w.connected = false
 		conn.Close()
-		return fmt.Errorf("unable to cast TCP connection to tcp connection state, makes no sense.")
+		return fmt.Errorf("unable to cast TCP connection to tcp connection state, makes no sense")
 	}
 	err = w.conn.CloseRead()
 	if err != nil {

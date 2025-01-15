@@ -27,13 +27,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/telenornms/skogul"
-	"github.com/telenornms/skogul/parser"
 	"log"
 	"regexp"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/telenornms/skogul"
+	"github.com/telenornms/skogul/parser"
 )
 
 var logBuffer bytes.Buffer
@@ -81,7 +82,7 @@ func TestValidate(t *testing.T) {
 		t.Errorf("Validate() succeeded on an empty Container")
 	}
 	got := fmt.Sprintf("%s", err)
-	want := "missing metrics[] data."
+	want := "missing metrics[] data"
 	if got != want {
 		t.Errorf("Validate() expected reason %s, got %s", want, got)
 	}
@@ -93,7 +94,7 @@ func TestValidate(t *testing.T) {
 		t.Errorf("Validate() succeeded on an Container with empty metrics[]")
 	}
 	got = fmt.Sprintf("%s", err)
-	want = "empty metrics[] data."
+	want = "empty metrics[] data"
 	if got != want {
 		t.Errorf("Validate() expected reason %s, got %s", want, got)
 	}
@@ -187,11 +188,9 @@ func TestValidate_partial(t *testing.T) {
 	if len(c.Metrics) != 2 {
 		t.Errorf("Validate() failed to return correct number of metrics. Expected 2, got %d.", len(c.Metrics))
 	}
-
 }
 
 func BenchmarkValidate(b *testing.B) {
-
 	now := time.Now()
 	metric := skogul.Metric{}
 	metric.Data = make(map[string]interface{})
@@ -202,7 +201,6 @@ func BenchmarkValidate(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		okc.Validate(false)
 	}
-
 }
 
 func BenchmarkCompareText(b *testing.B) {
@@ -216,6 +214,7 @@ func BenchmarkCompareText(b *testing.B) {
 		}
 	}
 }
+
 func BenchmarkCompareRegexp(b *testing.B) {
 	data := []string{"the fox jumps over the some-variable=na something", "this is fine, nothing is on fire", "only 1337 allowed"}
 	exp, err := regexp.Compile(".*some-variable=.*")
@@ -230,6 +229,7 @@ func BenchmarkCompareRegexp(b *testing.B) {
 		}
 	}
 }
+
 func BenchmarkCompareSubstr(b *testing.B) {
 	data := []string{"the fox jumps over the some-variable=na something", "this is fine, nothing is on fire", "only 1337 allowed"}
 	for i := 0; i < b.N; i++ {

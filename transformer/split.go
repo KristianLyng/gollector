@@ -44,7 +44,6 @@ type DictSplit struct {
 
 // Transform splits the container assuming it has an array to split
 func (split *Split) Transform(c *skogul.Container) error {
-
 	metrics := c.Metrics
 
 	if split.Field != nil {
@@ -66,13 +65,12 @@ func (split *Split) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*skogu
 
 	for mi := range origMetrics {
 		splitObj, err := skogul.ExtractNestedObject(origMetrics[mi].Data, split.Field)
-
 		if err != nil {
 			if !split.Fail {
 				newMetrics = append(newMetrics, origMetrics[mi])
 				continue
 			}
-			return nil, fmt.Errorf("Failed to extract nested obj '%v' from '%v' to string/interface map", split.Field, origMetrics[mi].Data)
+			return nil, fmt.Errorf("failed to extract nested obj '%v' from '%v' to string/interface map", split.Field, origMetrics[mi].Data)
 		}
 
 		metrics, ok := splitObj[split.Field[len(split.Field)-1]].([]interface{})
@@ -82,7 +80,7 @@ func (split *Split) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*skogu
 				newMetrics = append(newMetrics, origMetrics[mi])
 				continue
 			}
-			return nil, fmt.Errorf("Failed to cast '%v' to string/interface map on '%s'", origMetrics[mi].Data, split.Field[0])
+			return nil, fmt.Errorf("failed to cast '%v' to string/interface map on '%s'", origMetrics[mi].Data, split.Field[0])
 		}
 
 		for idx, obj := range metrics {
@@ -94,7 +92,7 @@ func (split *Split) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*skogu
 					newMetrics = append(newMetrics, origMetrics[mi])
 					continue
 				}
-				return nil, fmt.Errorf("Failed to cast '%v' to string/interface map", obj)
+				return nil, fmt.Errorf("failed to cast '%v' to string/interface map", obj)
 			}
 
 			newMetric := *origMetrics[mi]
@@ -117,7 +115,6 @@ func (split *Split) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*skogu
 
 // Transform splits the container assuming it has a dictionary to split
 func (split *DictSplit) Transform(c *skogul.Container) error {
-
 	metrics := c.Metrics
 
 	if split.Field != nil {
@@ -141,13 +138,12 @@ func (split *DictSplit) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*s
 		var metrics map[string]interface{}
 		if len(split.Field) > 0 {
 			splitObj, err := skogul.ExtractNestedObject(origMetrics[mi].Data, split.Field)
-
 			if err != nil {
 				if !split.Fail {
 					newMetrics = append(newMetrics, origMetrics[mi])
 					continue
 				}
-				return nil, fmt.Errorf("Failed to extract nested obj '%v' from '%v' to string/interface map", split.Field, origMetrics[mi].Data)
+				return nil, fmt.Errorf("failed to extract nested obj '%v' from '%v' to string/interface map", split.Field, origMetrics[mi].Data)
 			}
 			var ok bool
 			metrics, ok = splitObj[split.Field[len(split.Field)-1]].(map[string]interface{})
@@ -156,7 +152,7 @@ func (split *DictSplit) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*s
 					newMetrics = append(newMetrics, origMetrics[mi])
 					continue
 				}
-				return nil, fmt.Errorf("Failed to cast '%v' to string/interface map on '%s'", origMetrics[mi].Data, split.Field[0])
+				return nil, fmt.Errorf("failed to cast '%v' to string/interface map on '%s'", origMetrics[mi].Data, split.Field[0])
 			}
 		} else {
 			metrics = origMetrics[mi].Data
@@ -171,7 +167,7 @@ func (split *DictSplit) splitMetricsByObjectKey(metrics *[]*skogul.Metric) ([]*s
 					newMetrics = append(newMetrics, origMetrics[mi])
 					continue
 				}
-				return nil, fmt.Errorf("Failed to cast '%v' to string/interface map", obj)
+				return nil, fmt.Errorf("failed to cast '%v' to string/interface map", obj)
 			}
 
 			newMetric := *origMetrics[mi]

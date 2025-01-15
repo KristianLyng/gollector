@@ -39,6 +39,7 @@ func TestLogLevelForConfiguredAsInfo(t *testing.T) {
 		t.Errorf("Failed to set log level to info, got %v", level)
 	}
 }
+
 func TestLogLevelForConfiguredAsInfoShorthand(t *testing.T) {
 	levelString := "i"
 	levelType := logrus.InfoLevel
@@ -48,6 +49,7 @@ func TestLogLevelForConfiguredAsInfoShorthand(t *testing.T) {
 		t.Errorf("Failed to set log level to info, got %v", level)
 	}
 }
+
 func TestLogLevelForInvalid(t *testing.T) {
 	levelString := "abcdefgh"
 	levelType := logrus.WarnLevel

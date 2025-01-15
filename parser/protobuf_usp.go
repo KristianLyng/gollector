@@ -12,7 +12,7 @@ import (
 	"github.com/telenornms/skogul/gen/usp"
 )
 
-type USP_Parser struct {
+type USPParser struct {
 	once  sync.Once
 	stats *statistics
 }
@@ -26,7 +26,7 @@ type statistics struct {
 	Parsed                uint64 // Successful parses
 }
 
-func (p *USP_Parser) initParserStatistics() {
+func (p *USPParser) initParserStatistics() {
 	p.stats = &statistics{
 		Received:              0,
 		ParseErrors:           0,
@@ -38,7 +38,7 @@ func (p *USP_Parser) initParserStatistics() {
 }
 
 // Parse accepts a byte slice of protobuf data and marshals it into a container
-func (p *USP_Parser) Parse(b []byte) (*skogul.Container, error) {
+func (p *USPParser) Parse(b []byte) (*skogul.Container, error) {
 	p.once.Do(p.initParserStatistics)
 
 	if b == nil {
@@ -60,7 +60,6 @@ func (p *USP_Parser) Parse(b []byte) (*skogul.Container, error) {
 	metadata := p.createRecordMetadata(record, recordData)
 
 	json, err := p.extractJSON(recordData["event_data"].(string))
-
 	if err != nil {
 		atomic.AddUint64(&p.stats.FailedToJsonUnmarshal, 1)
 		return nil, fmt.Errorf("failed to unmarshal json: %w", err)
@@ -84,7 +83,7 @@ func (p *USP_Parser) Parse(b []byte) (*skogul.Container, error) {
 }
 
 // getUspRecord Unmarshals []byte into a protoc generated struct and returns it
-func (p *USP_Parser) getUspRecord(d []byte) (*usp.Record, error) {
+func (p *USPParser) getUspRecord(d []byte) (*usp.Record, error) {
 	unmarshaledMessage := &usp.Record{}
 	if err := proto.Unmarshal(d, unmarshaledMessage); err != nil {
 		atomic.AddUint64(&p.stats.ParseErrors, 1)
@@ -97,7 +96,7 @@ func (p *USP_Parser) getUspRecord(d []byte) (*usp.Record, error) {
 getRecordMsgPayload unmarshals []byte consisting of the record payload into
 a protoc generated struct and returns it
 */
-func (p *USP_Parser) getRecordMsgPayload(payload []byte) (*usp.Msg, error) {
+func (p *USPParser) getRecordMsgPayload(payload []byte) (*usp.Msg, error) {
 	msgPayload := &usp.Msg{}
 
 	if err := proto.Unmarshal(payload, msgPayload); err != nil {
@@ -109,8 +108,8 @@ func (p *USP_Parser) getRecordMsgPayload(payload []byte) (*usp.Msg, error) {
 }
 
 // createRecordMetadata creates a map[string]interface{} of the metadata for skogul.Metric
-func (p *USP_Parser) createRecordMetadata(h *usp.Record, xh map[string]interface{}) map[string]interface{} {
-	var d = make(map[string]interface{})
+func (p *USPParser) createRecordMetadata(h *usp.Record, xh map[string]interface{}) map[string]interface{} {
+	d := make(map[string]interface{})
 
 	d["event"] = xh["event"]
 	d["event_type"] = xh["event_type"]
@@ -125,7 +124,7 @@ func (p *USP_Parser) createRecordMetadata(h *usp.Record, xh map[string]interface
 }
 
 // extractJSON unmarshals event parameters to json
-func (p *USP_Parser) extractJSON(s string) (map[string]interface{}, error) {
+func (p *USPParser) extractJSON(s string) (map[string]interface{}, error) {
 	input := []byte(s)
 
 	var d map[string]interface{}
@@ -138,10 +137,9 @@ func (p *USP_Parser) extractJSON(s string) (map[string]interface{}, error) {
 }
 
 // createRecordData creates a map[string]interface{} of the record payload for skogul.Metric
-func (p *USP_Parser) createRecordData(t *usp.Record) (map[string]interface{}, error) {
-	var jsonMap = make(map[string]interface{})
+func (p *USPParser) createRecordData(t *usp.Record) (map[string]interface{}, error) {
+	jsonMap := make(map[string]interface{})
 	payload, err := p.getRecordMsgPayload(t.GetNoSessionContext().GetPayload())
-
 	if err != nil {
 		return nil, err
 	}

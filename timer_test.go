@@ -24,9 +24,10 @@
 package skogul_test
 
 import (
-	"github.com/telenornms/skogul"
 	"testing"
 	"time"
+
+	"github.com/telenornms/skogul"
 )
 
 func wait() {
@@ -41,14 +42,14 @@ func TestNow(t *testing.T) {
 	if !start.Before(two) {
 		t.Errorf("skogul.Now() in the middle was not after skogul.Now() from the start")
 	}
-	middle_now := time.Now()
-	if !start.Before(middle_now) {
+	middleNow := time.Now()
+	if !start.Before(middleNow) {
 		t.Errorf("time.Now() in the middle was not after skogul.Now() from the start")
 	}
 	wait()
 	three := skogul.Now()
-	if !middle_now.Before(three) {
-		t.Errorf("time.Now() in the middle was not before skogul.Now() from the end: middle_now: %v three: %v", middle_now, three)
+	if !middleNow.Before(three) {
+		t.Errorf("time.Now() in the middle was not before skogul.Now() from the end: middleNow: %v three: %v", middleNow, three)
 	}
 }
 

@@ -4,7 +4,7 @@
  * Copyright (c) 2022 Telenor Norge AS
  * Author:
  *  - Roshini Narasimha Raghavan <roshiragavi@gmail.com>
-  *  - Kristian Lyngstøl <kly@kly.no>
+ *  - Kristian Lyngstøl <kly@kly.no>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -19,7 +19,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301  USA
-*/
+ */
 
 package encoder
 
@@ -83,6 +83,7 @@ func (x *AVRO) Encode(c *skogul.Container) ([]byte, error) {
 
 	return avro.Marshal(x.s, &tmpContainer)
 }
+
 func (x *AVRO) EncodeMetric(m *skogul.Metric) ([]byte, error) {
 	return nil, fmt.Errorf("not supported")
 }

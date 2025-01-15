@@ -79,7 +79,7 @@ func (influxdb InfluxDB) Parse(bytes []byte) (*skogul.Container, error) {
 	}
 
 	if len(errors) > 0 {
-		return &container, fmt.Errorf("One or more influxdb line protocol parse failures. Returning %d successful parses and skipping %d errors.", len(container.Metrics), len(errors))
+		return &container, fmt.Errorf("one or more influxdb line protocol parse failures. Returning %d successful parses and skipping %d errors", len(container.Metrics), len(errors))
 	}
 
 	return &container, nil
@@ -119,7 +119,7 @@ func (line *InfluxDBLineProtocol) ParseLine(s string) error {
 	canContinue = scanner.Scan()
 
 	if !canContinue && scanner.Err() != nil {
-		return fmt.Errorf("Scanner cannot continue after second scan: %w", scanner.Err())
+		return fmt.Errorf("scanner cannot continue after second scan: %w", scanner.Err())
 	}
 
 	fields := scanner.Text()
@@ -127,7 +127,7 @@ func (line *InfluxDBLineProtocol) ParseLine(s string) error {
 	canContinue = scanner.Scan()
 
 	if !canContinue && scanner.Err() != nil {
-		return fmt.Errorf("Scanner cannot continue after third scan: %w", scanner.Err())
+		return fmt.Errorf("scanner cannot continue after third scan: %w", scanner.Err())
 	}
 
 	// If we get a valid length here we have a value in the timestamp section
@@ -208,7 +208,6 @@ func (line *InfluxDBLineProtocol) Metric() *skogul.Metric {
 }
 
 func parseFieldValue(value string) interface{} {
-
 	// If the last char is an 'i' and the rest is numeric, this is an integer
 	if value[len(value)-1:] == "i" {
 		if i, err := strconv.ParseInt(value[0:len(value)-1], 0, 64); err == nil {
@@ -240,7 +239,6 @@ func parseFieldValue(value string) interface{} {
 // Sections are split on a non-escaped space character, and we retain all escaped
 // characters and let the next splitter handle them.
 func splitSections(data []byte, atEOF bool) (advance int, token []byte, err error) {
-
 	fieldWidth, newData := influxLineParser(data, ' ', false)
 
 	returnChars := len(newData)
@@ -258,7 +256,6 @@ func splitSections(data []byte, atEOF bool) (advance int, token []byte, err erro
 // into key=value pairs, honoring escape rules as per the influx line protocol.
 // A key=value pair is split on a non-escaped comma.
 func splitInfluxKeyValuePairs(data []byte, atEOF bool) (advance int, token []byte, err error) {
-
 	fieldWidth, newData := influxLineParser(data, ',', true)
 
 	returnChars := len(newData)

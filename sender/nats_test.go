@@ -1,9 +1,10 @@
 package sender_test
 
 import (
+	"testing"
+
 	"github.com/telenornms/skogul/config"
 	"github.com/telenornms/skogul/sender"
-	"testing"
 )
 
 func TestNats(t *testing.T) {
@@ -33,7 +34,6 @@ func TestNats(t *testing.T) {
 	    }
 	  }
 	}`))
-
 	if err != nil {
 		t.Errorf("Failed to load config: %s", err)
 	}

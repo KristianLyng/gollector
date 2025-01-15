@@ -111,7 +111,7 @@ func (idb *InfluxDB) Send(c *skogul.Container) error {
 		measurement := idb.Measurement
 		if len(m.Data) == 0 {
 			// must have SOME data
-			// XXX: Should rneport.
+			// XXX: Should report.
 			continue
 		}
 		if idb.MeasurementFromMetadata != "" {
@@ -214,7 +214,7 @@ func (idb *InfluxDB) Send(c *skogul.Container) error {
 			body = []byte(fmt.Sprintf("No reply body. Request: %s", buffer.Bytes()))
 		}
 
-		return fmt.Errorf("Influx sender(%s) failed to send container (%s). Bad response from InfluxDB: %s - %s", skogul.Identity[idb], c.Describe(), resp.Status, string(body))
+		return fmt.Errorf("influx sender(%s) failed to send container (%s). Bad response from InfluxDB: %s - %s", skogul.Identity[idb], c.Describe(), resp.Status, string(body))
 	}
 	return nil
 }

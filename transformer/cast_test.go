@@ -33,7 +33,6 @@ import (
 )
 
 func TestCast(t *testing.T) {
-
 	metric := skogul.Metric{}
 	metric.Metadata = make(map[string]interface{})
 	metric.Data = make(map[string]interface{})
@@ -77,7 +76,6 @@ func TestCast(t *testing.T) {
 	}
 
 	err := cast.Transform(&c)
-
 	if err != nil {
 		t.Errorf("Cast() returned non-nil err: %v", err)
 	}
@@ -96,8 +94,8 @@ func TestCast(t *testing.T) {
 	check_m(t, c.Metrics[0], "mstringtoint", 3)
 	check_m(t, c.Metrics[0], "mflatten", "314159265358979")
 
-	//check_m(t, c.Metrics[0], "mipv4", bigIntTestIpv4)
-	//check_m(t, c.Metrics[0], "mipv6", big.NewInt(1).Cmp(metric.Metadata["mipv6"].(*big.Int)))
+	// check_m(t, c.Metrics[0], "mipv4", bigIntTestIpv4)
+	// check_m(t, c.Metrics[0], "mipv6", big.NewInt(1).Cmp(metric.Metadata["mipv6"].(*big.Int)))
 	if bigIntTestIpv4.Cmp(metric.Metadata["mipv4"].(*big.Int)) != 0 {
 		t.Error("ip to dec not equal")
 	}
@@ -115,15 +113,14 @@ func TestCast(t *testing.T) {
 	check_d(t, c.Metrics[0], "dfloattoint", 3)
 	check_d(t, c.Metrics[0], "dstringtoint", 3)
 
-	//check_d(t, c.Metrics[0], "dipv4", big.NewInt(2130706433).Cmp(metric.Metadata["dipv4"].(*big.Int)))
-	//check_d(t, c.Metrics[0], "dipv6", big.NewInt(1).Cmp(metric.Metadata["dipv6"].(*big.Int)))
+	// check_d(t, c.Metrics[0], "dipv4", big.NewInt(2130706433).Cmp(metric.Metadata["dipv4"].(*big.Int)))
+	// check_d(t, c.Metrics[0], "dipv6", big.NewInt(1).Cmp(metric.Metadata["dipv6"].(*big.Int)))
 	if bigIntTestIpv4.Cmp(metric.Data["dipv4"].(*big.Int)) != 0 {
 		t.Error("ip to dec not equal")
 	}
 	if bigIntTestIpv6.Cmp(metric.Data["dipv6"].(*big.Int)) != 0 {
 		t.Error("ip to dec not equal")
 	}
-
 }
 
 func TestCast_config(t *testing.T) {

@@ -170,10 +170,10 @@ validated by that time.
 */
 func (c *Container) Validate(IgnorePartialErrors bool) error {
 	if c.Metrics == nil {
-		return fmt.Errorf("missing metrics[] data.")
+		return fmt.Errorf("missing metrics[] data")
 	}
 	if len(c.Metrics) <= 0 {
-		return fmt.Errorf("empty metrics[] data.")
+		return fmt.Errorf("empty metrics[] data")
 	}
 	var err error
 	ok := 0

@@ -61,8 +61,7 @@ func lfMakeFile(t *testing.T) (string, error) {
 		return "", err
 	}
 
-	err = syscall.Mkfifo(file, 0600)
-
+	err = syscall.Mkfifo(file, 0o600)
 	if err != nil {
 		t.Errorf("Unable to make fifo %s: %v", file, err)
 		return "", err
@@ -107,7 +106,6 @@ func TestLineFile(t *testing.T) {
 }`, file)
 
 	conf, err := config.Bytes([]byte(sconf))
-
 	if err != nil {
 		t.Errorf("Failed to load config: %v", err)
 		return
@@ -127,7 +125,7 @@ func TestLineFile(t *testing.T) {
 		t.Errorf("Failed to marshal container: %v", err)
 		return
 	}
-	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0777)
+	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0o777)
 	if err != nil {
 		t.Errorf("Unable to open file/fifo for writing: %v", err)
 		return
@@ -188,7 +186,6 @@ func TestLineFileAdvanced(t *testing.T) {
 	}`, file, file, file, file)
 
 	conf, err := config.Bytes([]byte(sconf))
-
 	if err != nil {
 		t.Errorf("Failed to load config: %v", err)
 		return
@@ -215,7 +212,7 @@ func TestLineFileAdvanced(t *testing.T) {
 		t.Errorf("Failed to marshal container: %v", err)
 		return
 	}
-	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0777)
+	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0o777)
 	if err != nil {
 		t.Errorf("Unable to open file/fifo for writing: %v", err)
 		return

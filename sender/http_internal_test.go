@@ -38,6 +38,7 @@ func TestHttpSenderAlwaysHasContentTypeHeader(t *testing.T) {
 		t.Errorf("Missing value in Content-Type header when not setting the header value")
 	}
 }
+
 func TestHttpSenderKeepContentHeader(t *testing.T) {
 	textPlain := "text/plain"
 

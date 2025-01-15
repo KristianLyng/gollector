@@ -158,7 +158,6 @@ func (lf *LineFileAdvanced) runCmd(cmd string) error {
 	rcmd = append(rcmd, cmd)
 	c := exec.Command(rcmd[0], rcmd[1:]...)
 	_, err := c.Output()
-
 	if err != nil {
 		return fmt.Errorf("failed to execute command %s: %w", cmd, err)
 	}

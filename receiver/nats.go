@@ -25,9 +25,10 @@ package receiver
 import (
 	"crypto/tls"
 	"fmt"
+	"sync"
+
 	"github.com/nats-io/nats.go"
 	"github.com/telenornms/skogul"
-	"sync"
 )
 
 var natsLog = skogul.Logger("receiver", "nats")
@@ -66,10 +67,10 @@ func (n *Nats) Verify() error {
 	if n.Servers == "" {
 		return skogul.MissingArgument("Servers")
 	}
-	//User Credentials
+	// User Credentials
 	if n.UserCreds != "" && n.NKeyFile != "" {
-		//Cred file contains nkey.
-		return fmt.Errorf("Please configure usercreds or nkeyfile.")
+		// Cred file contains nkey.
+		return fmt.Errorf("please configure usercreds or nkeyfile")
 	}
 
 	return nil
@@ -85,14 +86,14 @@ func (n *Nats) Start() error {
 		*n.conOpts = append(*n.conOpts, nats.UserCredentials(n.UserCreds))
 	}
 
-	//Plain text passwords
+	// Plain text passwords
 	if n.Username != "" && n.Password != "" {
 		if n.TLSClientKey != "" {
 			natsLog.Warnf("Using plain text password over a non encrypted transport!")
 		}
 		*n.conOpts = append(*n.conOpts, nats.UserInfo(n.Username, n.Password))
 	}
-	//TLS authentication, Note: Fix selfsigned certificates.
+	// TLS authentication, Note: Fix selfsigned certificates.
 	if n.TLSClientKey != "" && n.TLSClientCert != "" {
 		cert, err := tls.LoadX509KeyPair(n.TLSClientCert, n.TLSClientKey)
 		if err != nil {
@@ -101,7 +102,7 @@ func (n *Nats) Start() error {
 
 		cp, err := skogul.GetCertPool(n.TLSCACert)
 		if err != nil {
-			return fmt.Errorf("Failed to initialize root CA pool")
+			return fmt.Errorf("failed to initialize root CA pool")
 		}
 
 		config := &tls.Config{
@@ -112,7 +113,7 @@ func (n *Nats) Start() error {
 		*n.conOpts = append(*n.conOpts, nats.Secure(config))
 	}
 
-	//NKey auth
+	// NKey auth
 	if n.NKeyFile != "" {
 		opt, err := nats.NkeyOptionFromSeed(n.NKeyFile)
 		if err != nil {
@@ -121,17 +122,17 @@ func (n *Nats) Start() error {
 		*n.conOpts = append(*n.conOpts, opt)
 	}
 
-	//Log disconnects
+	// Log disconnects
 	*n.conOpts = append(*n.conOpts, nats.DisconnectErrHandler(func(nc *nats.Conn, err error) {
 		natsLog.WithError(err).Error("Got disconnected!")
 	}))
-	//Log reconnects
+	// Log reconnects
 	*n.conOpts = append(*n.conOpts, nats.ReconnectHandler(func(nc *nats.Conn) {
 		natsLog.Info("Reconnected")
 	}))
-	//Always try to reconnect
+	// Always try to reconnect
 	*n.conOpts = append(*n.conOpts, nats.RetryOnFailedConnect(true))
-	//Try to reconnect forever
+	// Try to reconnect forever
 	*n.conOpts = append(*n.conOpts, nats.MaxReconnects(-1))
 
 	var err error
@@ -145,7 +146,6 @@ func (n *Nats) Start() error {
 		if err := n.Handler.H.Handle(msg.Data); err != nil {
 			natsLog.WithError(err).Warn("Unable to handle Nats message")
 		}
-		return
 	}
 
 	n.wg.Add(1)

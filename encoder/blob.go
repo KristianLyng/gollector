@@ -3,8 +3,9 @@ package encoder
 import (
 	"bytes"
 	"fmt"
-	"github.com/telenornms/skogul"
 	"sync"
+
+	"github.com/telenornms/skogul"
 )
 
 /*

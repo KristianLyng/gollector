@@ -26,13 +26,14 @@ package receiver_test
 
 import (
 	"fmt"
+	"os"
+	"testing"
+	"time"
+
 	"github.com/telenornms/skogul"
 	"github.com/telenornms/skogul/config"
 	"github.com/telenornms/skogul/receiver"
 	"github.com/telenornms/skogul/sender"
-	"os"
-	"testing"
-	"time"
 )
 
 // Tests http receiver, sender and JSON parser implicitly
@@ -167,7 +168,6 @@ func TestHttp_stack(t *testing.T) {
 		}
 	}
 }`))
-
 	if err != nil {
 		t.Errorf("Failed to load config: %v", err)
 		return
@@ -292,7 +292,6 @@ func TestHttpHandlersWithAuth(t *testing.T) {
 		}
 	}
 }`))
-
 	if err != nil {
 		t.Errorf("Failed to load config: %v", err)
 		return
@@ -369,7 +368,6 @@ func TestMain(m *testing.M) {
 		}
 	}
 }`))
-
 	if err != nil {
 		fmt.Printf("Failed to load config: %v", err)
 		os.Exit(1)

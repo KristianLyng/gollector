@@ -24,10 +24,11 @@
 package transformer_test
 
 import (
-	"github.com/telenornms/skogul"
-	"github.com/telenornms/skogul/transformer"
 	"testing"
 	"time"
+
+	"github.com/telenornms/skogul"
+	"github.com/telenornms/skogul/transformer"
 )
 
 func TestTemplate(t *testing.T) {
@@ -56,7 +57,6 @@ func TestTemplate(t *testing.T) {
 	templater := transformer.Templater{}
 
 	err := templater.Transform(&c)
-
 	if err != nil {
 		t.Errorf("Templater() returned non-nil err: %v", err)
 	}
@@ -94,7 +94,6 @@ func TestTemplate_blank(t *testing.T) {
 	templater := transformer.Templater{}
 
 	err := templater.Transform(&c)
-
 	if err != nil {
 		t.Errorf("Templater() returned non-nil err: %v", err)
 	}

@@ -27,10 +27,11 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"time"
+
 	kafka "github.com/segmentio/kafka-go"
 	kplain "github.com/segmentio/kafka-go/sasl/plain"
 	"github.com/telenornms/skogul"
-	"time"
 )
 
 var kafkaLog = skogul.Logger("receiver", "kafka")
@@ -66,7 +67,7 @@ func (k *Kafka) Start() error {
 		dialer.TLS = &tls.Config{}
 	}
 	if (k.Username != "" && k.Password == "") || (k.Username == "" && k.Password != "") {
-		return fmt.Errorf("Provided just one of Username or Password for Kafka receiver, which makes no sense. Provide both or neither.")
+		return fmt.Errorf("provided just one of Username or Password for Kafka receiver, which makes no sense. Provide both or neither")
 	}
 	if k.Username != "" && k.Password != "" {
 		if !k.TLS {

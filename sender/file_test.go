@@ -80,7 +80,6 @@ func TestWriteToFIle(t *testing.T) {
 
 	testPid := os.Getpid()
 	process, err := os.FindProcess(testPid)
-
 	if err != nil {
 		t.Errorf("Could not find requested PID %v", testPid)
 		return
@@ -128,7 +127,6 @@ func TestAppendToFile(t *testing.T) {
 
 	testPid := os.Getpid()
 	process, err := os.FindProcess(testPid)
-
 	if err != nil {
 		t.Errorf("Could not find requested PID %v", testPid)
 		return

@@ -25,20 +25,20 @@ package sender_test
 
 import (
 	"fmt"
+	"math/rand"
+	"testing"
+	"time"
+
 	"github.com/telenornms/skogul"
 	"github.com/telenornms/skogul/config"
 	"github.com/telenornms/skogul/parser"
 	"github.com/telenornms/skogul/receiver"
 	"github.com/telenornms/skogul/sender"
-	"math/rand"
-	"testing"
-	"time"
 )
 
 var validContainer = skogul.Container{}
 
 func init() {
-
 	now := time.Now()
 	rand.Seed(now.Unix())
 
@@ -113,6 +113,7 @@ func TestHttp_rootCa_bad1(t *testing.T) {
 		return
 	}
 }
+
 func TestHttp_rootCa_bad2(t *testing.T) {
 	_, err := config.Bytes([]byte(`
 {

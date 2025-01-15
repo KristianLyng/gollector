@@ -25,9 +25,10 @@ package config
 
 import (
 	"fmt"
-	"github.com/telenornms/skogul"
 	"reflect"
 	"unicode"
+
+	"github.com/telenornms/skogul"
 )
 
 // FieldDoc is a structured representation of the documentation of a single

@@ -100,7 +100,7 @@ func (auth *HTTPAuth) auth(r *http.Request) error {
 		username, pw, ok := r.BasicAuth()
 		success := ok && auth.Username == username && auth.Password.Expose() == pw
 		if !success {
-			return fmt.Errorf("Invalid credentials")
+			return fmt.Errorf("invalid credentials")
 		}
 
 		return nil
@@ -196,7 +196,7 @@ func (f fallback) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		"ContentLength": r.ContentLength}).WithError(err).Warnf("HTTP request failed%s", extra)
 	if f.hasAuth {
 		code = 401
-		err = fmt.Errorf("Invalid credentials")
+		err = fmt.Errorf("invalid credentials")
 	}
 	answer(w, r, code, err)
 }
@@ -333,7 +333,7 @@ func (htt *HTTP) Verify() error {
 		httpLog.Warn("HTTP receiver configured with authentication but not with TLS! Auth will happen in the open!")
 	}
 	if (htt.Certfile != "" && htt.Keyfile == "") || (htt.Certfile == "" && htt.Keyfile != "") {
-		return fmt.Errorf("Specify both Certfile AND Keyfile or none at all")
+		return fmt.Errorf("specify both Certfile AND Keyfile or none at all")
 	}
 	cas, err := loadClientCertificateCAs(htt.ClientCertificateCAs)
 	if err != nil {
@@ -341,13 +341,13 @@ func (htt *HTTP) Verify() error {
 	}
 	for _, auth := range htt.Auth {
 		if auth.Username != "" && auth.Password == "" {
-			return fmt.Errorf("Username specified but no password.")
+			return fmt.Errorf("username specified but no password")
 		}
 		if auth.Username == "" && auth.Password != "" {
-			return fmt.Errorf("Password specified but no username.")
+			return fmt.Errorf("password specified but no username")
 		}
 		if auth.SANDNSName != "" && cas == nil {
-			return fmt.Errorf("No Client Certificate CAs defined, but DNS Name for SAN specified. Specify ClientCertificateCAs configuration element.")
+			return fmt.Errorf("no Client Certificate CAs defined, but DNS Name for SAN specified. Specify ClientCertificateCAs configuration element")
 		}
 	}
 

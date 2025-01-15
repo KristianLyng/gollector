@@ -1,7 +1,6 @@
 package transformer
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 
@@ -93,7 +92,6 @@ func (u *Unflatten) convertValues(d *skogul.Metric) (*skogul.Metric, error) {
 	for _, k := range keys {
 		s := strings.Split(k, u.Separator)
 		tmp[s[0]], err = u.recursivelyCreateMap(tmp[s[0]].(map[string]interface{}), s[1:], d.Data[k], 0)
-
 		if err != nil {
 			return nil, err
 		}
@@ -114,7 +112,7 @@ func (u *Unflatten) recursivelyCreateMap(root map[string]interface{}, keys []str
 	if _, ok := root[keys[pos]]; ok { // Key already exists, continue creating key-value pairs in the same map until we reach length of keys.
 		key, okk := root[keys[pos]].(map[string]interface{})
 		if !okk {
-			return root, errors.New(fmt.Sprintf("trying to write a value with type `%v` to a key without depth.", key))
+			return root, fmt.Errorf("trying to write a value with type `%v` to a key without depth", key)
 		}
 		root[keys[pos]], err = u.recursivelyCreateMap(key, keys, value, pos+1)
 	} else {

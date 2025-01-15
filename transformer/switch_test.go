@@ -31,9 +31,11 @@ import (
 	"github.com/telenornms/skogul/transformer"
 )
 
-const testMetadataA = `{ "sensor": "a" }`
-const testMetadataB = `{ "sensor": "b" }`
-const testData = `{ "bannable_field": "someValue", "removable_field": "someOtherValue", "data": "42" }`
+const (
+	testMetadataA = `{ "sensor": "a" }`
+	testMetadataB = `{ "sensor": "b" }`
+	testData      = `{ "bannable_field": "someValue", "removable_field": "someOtherValue", "data": "42" }`
+)
 
 func generateContainer() skogul.Container {
 	metric := skogul.Metric{}
@@ -59,7 +61,6 @@ func TestSwitchTransformerRunsWithoutError(t *testing.T) {
 
 	container := generateContainer()
 	err := sw.Transform(&container)
-
 	if err != nil {
 		t.Errorf("Switch transformer returned err: %v", err)
 	}
@@ -89,7 +90,6 @@ func TestSwitchTransformerRunsSpecifiedTransformer(t *testing.T) {
 	container := generateContainer()
 
 	err := conf.Transformers["switch"].Transformer.Transform(&container)
-
 	if err != nil {
 		t.Errorf("Switch transformer returned error %v", err)
 	}
@@ -123,7 +123,6 @@ func TestSwitchTransformerDoesNotRunNonSpecifiedTransformer(t *testing.T) {
 	container := generateContainer()
 
 	err := conf.Transformers["switch"].Transformer.Transform(&container)
-
 	if err != nil {
 		t.Errorf("Switch transformer returned error %v", err)
 	}

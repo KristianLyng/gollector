@@ -87,7 +87,6 @@ func (r *Rabbitmq) init() {
 		false,
 		nil,
 	)
-
 	if err != nil {
 		rabbitmqLog.WithError(err).Error("Failed to declare a queue")
 		return
@@ -100,7 +99,7 @@ func (r *Rabbitmq) Send(c *skogul.Container) error {
 	})
 
 	if r.channel == nil {
-		return fmt.Errorf("No active rabbitmq connections")
+		return fmt.Errorf("no active rabbitmq connections")
 	}
 
 	body, err := r.Encoder.E.Encode(c)
@@ -123,7 +122,6 @@ func (r *Rabbitmq) Send(c *skogul.Container) error {
 			Body:        body,
 		},
 	)
-
 	if err != nil {
 		r.channel.Close()
 		return err

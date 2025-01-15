@@ -31,9 +31,8 @@ func readFile(file string, t *testing.T) []byte {
 func TestUSPParseFile(t *testing.T) {
 	d := readFile("testdata/usp.bin", t)
 
-	x := parser.USP_Parser{}
+	x := parser.USPParser{}
 	container, err := x.Parse(d)
-
 	if err != nil {
 		t.Error("Error while parsing", err)
 	}

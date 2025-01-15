@@ -35,6 +35,7 @@ func TestAVROParser(t *testing.T) {
 	by := []byte("{\"metrics\":[{\"timestamp\":\"0001-01-01T00:00:00Z\",\"metadata\":{\"key\":\"value\"}}]}")
 	parseAVRO(t, by)
 }
+
 func parseAVRO(t *testing.T, by []byte) {
 	t.Helper()
 	p := parser.AVRO{
@@ -43,20 +44,19 @@ func parseAVRO(t *testing.T, by []byte) {
 	e := encoder.AVRO{
 		Schema: "../docs/examples/avro/avro_schema",
 	}
-	var data_container *skogul.Container
-	err := json.Unmarshal(by, &data_container)
+	var dataContainer *skogul.Container
+	err := json.Unmarshal(by, &dataContainer)
 	if err != nil {
 		t.Logf("Failed to parse AVRO schema and test data preparation error: %v", err)
 		t.FailNow()
 	}
-	b, err := e.Encode(data_container)
+	b, err := e.Encode(dataContainer)
 	if err != nil {
 		t.Logf("Failed to read test data file: %v", err)
 		t.FailNow()
 	}
 
 	container, err := p.Parse(b)
-
 	if err != nil {
 		t.Logf("Failed to parse AVRO data: %v", err)
 		t.FailNow()
@@ -71,7 +71,7 @@ func parseAVRO(t *testing.T, by []byte) {
 		t.Logf("Expected parsed AVRO to return a metadata field value")
 		t.FailNow()
 	}
-	if *container.Metrics[0].Time != *data_container.Metrics[0].Time {
+	if *container.Metrics[0].Time != *dataContainer.Metrics[0].Time {
 		t.Logf("Expected parsed AVRO to return a time")
 		t.FailNow()
 	}

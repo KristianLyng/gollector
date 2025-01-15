@@ -25,11 +25,12 @@ package sender
 import (
 	"crypto/tls"
 	"fmt"
+	"strings"
+	"sync"
+
 	"github.com/nats-io/nats.go"
 	"github.com/telenornms/skogul"
 	"github.com/telenornms/skogul/encoder"
-	"strings"
-	"sync"
 )
 
 var natsLog = skogul.Logger("sender", "nats")
@@ -56,7 +57,7 @@ type Nats struct {
 	conOpts       *[]nats.Option
 	natsCon       *nats.Conn
 	once          sync.Once
-	init_error    error
+	initError     error
 }
 
 // Verify configuration
@@ -68,16 +69,15 @@ func (n *Nats) Verify() error {
 		return skogul.MissingArgument("Servers")
 	}
 
-	//User Credentials, use either.
+	// User Credentials, use either.
 	if n.UserCreds != "" && n.NKeyFile != "" {
-		return fmt.Errorf("Please configure usercreds or nkeyfile.")
+		return fmt.Errorf("please configure usercreds or nkeyfile")
 	}
 
 	return nil
 }
 
 func (n *Nats) init() error {
-
 	if n.Encoder.Name == "" {
 		n.Encoder.E = encoder.JSON{}
 	}
@@ -91,7 +91,7 @@ func (n *Nats) init() error {
 		*n.conOpts = append(*n.conOpts, nats.UserCredentials(n.UserCreds))
 	}
 
-	//Plain text passwords
+	// Plain text passwords
 	if n.Username != "" && n.Password != "" {
 		if n.TLSClientKey != "" {
 			natsLog.Warnf("Using plain text password over a non encrypted transport!")
@@ -99,19 +99,19 @@ func (n *Nats) init() error {
 		*n.conOpts = append(*n.conOpts, nats.UserInfo(n.Username, n.Password))
 	}
 
-	//TLS authentication
+	// TLS authentication
 	if n.TLSClientKey != "" && n.TLSClientCert != "" {
 		cert, err := tls.LoadX509KeyPair(n.TLSClientCert, n.TLSClientKey)
 		if err != nil {
-			n.init_error = fmt.Errorf("error parsing X509 certificate/key pair: %v", err)
+			n.initError = fmt.Errorf("error parsing X509 certificate/key pair: %v", err)
 		}
 
 		cp, err := skogul.GetCertPool(n.TLSCACert)
 		if err != nil {
-			n.init_error = fmt.Errorf("Failed to initialize root CA pool")
+			n.initError = fmt.Errorf("failed to initialize root CA pool")
 		}
 
-		if n.init_error == nil {
+		if n.initError == nil {
 			config := &tls.Config{
 				InsecureSkipVerify: n.Insecure,
 				Certificates:       []tls.Certificate{cert},
@@ -121,7 +121,7 @@ func (n *Nats) init() error {
 		}
 	}
 
-	//NKey auth
+	// NKey auth
 	if n.NKeyFile != "" {
 		opt, err := nats.NkeyOptionFromSeed(n.NKeyFile)
 		if err != nil {
@@ -130,23 +130,23 @@ func (n *Nats) init() error {
 		*n.conOpts = append(*n.conOpts, opt)
 	}
 
-	//Log disconnects
+	// Log disconnects
 	*n.conOpts = append(*n.conOpts, nats.DisconnectErrHandler(func(nc *nats.Conn, err error) {
 		natsLog.WithError(err).Error("Got disconnected!")
 	}))
-	//Log reconnects
+	// Log reconnects
 	*n.conOpts = append(*n.conOpts, nats.ReconnectHandler(func(nc *nats.Conn) {
 		natsLog.Info("Reconnected")
 	}))
-	//Always try reconnecting
+	// Always try reconnecting
 	*n.conOpts = append(*n.conOpts, nats.RetryOnFailedConnect(true))
-	//Keep doing reconnects
+	// Keep doing reconnects
 	*n.conOpts = append(*n.conOpts, nats.MaxReconnects(-1))
 
 	var err error
 	n.natsCon, err = nats.Connect(n.Servers, *n.conOpts...)
 	if err != nil {
-		n.init_error = fmt.Errorf("Encountered an error while connecting to Nats: %v", err)
+		n.initError = fmt.Errorf("encountered an error while connecting to Nats: %v", err)
 	}
 	return err
 }
@@ -155,12 +155,12 @@ func (n *Nats) Send(c *skogul.Container) error {
 	n.once.Do(func() {
 		n.init()
 	})
-	if n.init_error != nil {
-		return n.init_error
+	if n.initError != nil {
+		return n.initError
 	}
 	for i, m := range c.Metrics {
 		subject := n.Subject
-		//Append metadata fields to subject.
+		// Append metadata fields to subject.
 		for _, value := range n.SubjectAppend {
 			if appSubject, ok := m.Metadata[value]; ok {
 				if appSubject.(string) == "" {

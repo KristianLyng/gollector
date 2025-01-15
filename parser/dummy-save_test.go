@@ -63,6 +63,7 @@ func TestDummyStore(t *testing.T) {
 		t.Errorf("err! %v", err)
 	}
 }
+
 func TestDummyStore_no(t *testing.T) {
 	b := []byte(`some bytes`)
 	p := parser.DummyStore{}
