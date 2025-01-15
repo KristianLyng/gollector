@@ -30,7 +30,6 @@ package config
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -420,7 +419,7 @@ func Path(path string) (*Config, error) {
 // File opens a config file and parses it, then returns the valid
 // configuration, using Bytes()
 func File(f string) (*Config, error) {
-	dat, err := ioutil.ReadFile(f)
+	dat, err := os.ReadFile(f)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read configuration file: %w", err)
 	}
@@ -457,8 +456,7 @@ func ReadFiles(p string) (*Config, error) {
 
 	for _, f := range files {
 		confLog.WithField("file", f).Debug("Reading file")
-		b, err := ioutil.ReadFile(f)
-
+		b, err := os.ReadFile(f)
 		if err != nil {
 			return nil, err
 		}

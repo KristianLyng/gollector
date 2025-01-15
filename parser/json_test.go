@@ -25,7 +25,7 @@
 package parser_test
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/telenornms/skogul/parser"
@@ -51,8 +51,7 @@ func BenchmarkSkogulJSONParse(b *testing.B) {
 }
 
 func TestJSONParse(t *testing.T) {
-	b, err := ioutil.ReadFile("./testdata/raw.json")
-
+	b, err := os.ReadFile("./testdata/raw.json")
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return
@@ -72,8 +71,7 @@ func TestJSONParse(t *testing.T) {
 }
 
 func TestJSONArrayParse(t *testing.T) {
-	b, err := ioutil.ReadFile("./testdata/raw_array.json")
-
+	b, err := os.ReadFile("./testdata/raw_array.json")
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return

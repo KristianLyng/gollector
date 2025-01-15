@@ -23,7 +23,7 @@
 package parser_test
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 	"time"
 
@@ -170,7 +170,7 @@ func TestMNRExtractValues(t *testing.T) {
 }
 
 func TestMNROnDataset(t *testing.T) {
-	b, err := ioutil.ReadFile("./testdata/mnr.txt")
+	b, err := os.ReadFile("./testdata/mnr.txt")
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return

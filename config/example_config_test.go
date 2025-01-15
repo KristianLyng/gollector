@@ -24,7 +24,6 @@
 package config_test
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -36,8 +35,7 @@ import (
 func getExampleConfigs() (map[string][]byte, error) {
 	examplesPath := "../docs/examples"
 
-	files, err := ioutil.ReadDir(examplesPath)
-
+	files, err := os.ReadDir(examplesPath)
 	if err != nil {
 		return nil, err
 	}
@@ -62,14 +60,13 @@ func getExampleConfigs() (map[string][]byte, error) {
 	return bytes, nil
 }
 
-func readFileAndParseConfig(path string, info os.FileInfo) ([]byte, error) {
+func readFileAndParseConfig(path string, info os.DirEntry) ([]byte, error) {
 	// Assuming we can parse all .json files in the example config directory
 	if filepath.Ext(info.Name()) != ".json" {
 		return nil, nil
 	}
 
-	data, err := ioutil.ReadFile(filepath.Join(path, info.Name()))
-
+	data, err := os.ReadFile(filepath.Join(path, info.Name()))
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +76,6 @@ func readFileAndParseConfig(path string, info os.FileInfo) ([]byte, error) {
 
 func TestExampleConfigs(t *testing.T) {
 	bytebytes, err := getExampleConfigs()
-
 	if err != nil {
 		t.Errorf("Failed to read configuration files, %s", err)
 	}
@@ -91,7 +87,6 @@ func TestExampleConfigs(t *testing.T) {
 		// If the test passes it gets suppressed.
 		logrus.Debugf("Parsing %s", filename)
 		conf, err := config.Bytes(bytes)
-
 		if err != nil {
 			t.Errorf("Failed to parse config in %s %s", filename, err)
 			return

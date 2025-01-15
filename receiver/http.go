@@ -30,8 +30,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 	"sync/atomic"
 
@@ -170,13 +170,15 @@ func (rcvr receiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			"code":          code,
 			"remoteAddress": r.RemoteAddr,
 			"requestUri":    r.RequestURI,
-			"ContentLength": r.ContentLength}).WithError(err).Warnf("HTTP request failed")
+			"ContentLength": r.ContentLength,
+		}).WithError(err).Warnf("HTTP request failed")
 	} else if rcvr.settings.Log204OK {
 		httpLog.WithFields(log.Fields{
 			"code":          code,
 			"remoteAddress": r.RemoteAddr,
 			"requestUri":    r.RequestURI,
-			"ContentLength": r.ContentLength}).Infof("HTTP request ok")
+			"ContentLength": r.ContentLength,
+		}).Infof("HTTP request ok")
 	}
 	answer(w, r, code, err)
 }
@@ -193,7 +195,8 @@ func (f fallback) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		"code":          code,
 		"remoteAddress": r.RemoteAddr,
 		"requestUri":    r.RequestURI,
-		"ContentLength": r.ContentLength}).WithError(err).Warnf("HTTP request failed%s", extra)
+		"ContentLength": r.ContentLength,
+	}).WithError(err).Warnf("HTTP request failed%s", extra)
 	if f.hasAuth {
 		code = 401
 		err = fmt.Errorf("Invalid credentials")
@@ -207,7 +210,7 @@ func loadClientCertificateCAs(paths []string) (*x509.CertPool, error) {
 	httpLog.Debugf("Loading Client Certificates from %d file(s)", len(paths))
 	pool := x509.NewCertPool()
 	for _, path := range paths {
-		data, err := ioutil.ReadFile(path)
+		data, err := os.ReadFile(path)
 		if err != nil {
 			return nil, fmt.Errorf("failed to read certificate file: %w", err)
 		}

@@ -24,7 +24,7 @@
 package skogul
 
 import (
-	"io/ioutil"
+	"io"
 	"strings"
 
 	"github.com/sirupsen/logrus"
@@ -36,7 +36,7 @@ var skogulLogger = logrus.New()
 func ConfigureLogger(requestedLoglevel string, logtimestamp bool, logFormat string) {
 	// Disable output from the root logger; all logging is delegated through hooks
 	logrus.SetLevel(logrus.TraceLevel)
-	logrus.SetOutput(ioutil.Discard)
+	logrus.SetOutput(io.Discard)
 
 	loglevel := GetLogLevelFromString(requestedLoglevel)
 	skogulLogger.SetLevel(loglevel)

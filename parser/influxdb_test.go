@@ -25,7 +25,7 @@ package parser_test
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 	"testing"
 	"time"
@@ -108,8 +108,7 @@ func TestInfluxDBLineParseWithoutTimestamp(t *testing.T) {
 }
 
 func TestInfluxDBParseFile(t *testing.T) {
-	b, err := ioutil.ReadFile("./testdata/influxdb.txt")
-
+	b, err := os.ReadFile("./testdata/influxdb.txt")
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return
@@ -259,8 +258,7 @@ func TestInfluxDBParseTelegrafCmdLine(t *testing.T) {
 }
 
 func TestInfluxDBParseTelegrafCmdLines(t *testing.T) {
-	b, err := ioutil.ReadFile("./testdata/influxdb_procstat.txt")
-
+	b, err := os.ReadFile("./testdata/influxdb_procstat.txt")
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return
@@ -323,9 +321,9 @@ func TestInfluxDBParseDoubleBackslashEscape(t *testing.T) {
 		t.Errorf("expected parsed tag to equal %s, got %s", name, _container.Metrics[0].Metadata["name"])
 	}
 }
-func TestInfluxDBParseTelegrafSystemdUnitLines(t *testing.T) {
-	b, err := ioutil.ReadFile("./testdata/influxdb_systemd_units.txt")
 
+func TestInfluxDBParseTelegrafSystemdUnitLines(t *testing.T) {
+	b, err := os.ReadFile("./testdata/influxdb_systemd_units.txt")
 	if err != nil {
 		t.Errorf("Failed to read test data file: %v", err)
 		return
